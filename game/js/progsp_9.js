@@ -131,10 +131,11 @@ function setup() {
     domino = blocks[5].body;
       constraint3 = Matter.Constraint.create({
         bodyA: domino,
-        pointA: {x: -10, y: 50} ,
+      pointA: {x: -10, y: 50} ,
         pointB: {x: domino.position.x-11, y: domino.position.y+50} ,
-    });
 
+
+      });
 Matter.World.add(engine.world, [constraint3]);
 
 
