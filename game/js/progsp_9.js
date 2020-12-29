@@ -64,6 +64,9 @@ class Block {
     if (this.attrs.force) {
       Matter.Body.applyForce(ball, ball.position, this.attrs.force)
     }
+    if (domino.position.x >= 326 || this.attrs.chgStatic) {
+      Matter.Body.setStatic(this.body, true)
+    }
   }
 
   show() {
@@ -86,7 +89,7 @@ function setup() {
 
   blocks.push(new Block('rect',{ x: 150 , y: 100 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
   blocks.push(new Block('rect',{ x: 500 , y: 150 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
-  blocks.push(new Block('rect',{ x: 286 , y: 47 , w: 22, h: 100, color: "blue" }, { isStatic: false, angle: PI/32, friction: 0}))
+  blocks.push(new Block('rect',{ x: 286 , y: 47 , w: 22, h: 100, color: "blue", chgStatic: false }, { isStatic: false, angle: PI/32, friction: 0}))
   blocks.push(new Block('rect',{ x: 620 , y: 75 , w: 20, h: 100, color: "blue" }, { isStatic: false, angle: PI/32, friction: 0 }))
   blocks.push(new Block('rect',{ x: 900, y: 550, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
   blocks.push(new Block('rect',{ x: 450, y: 780, w: 350, h: 35, color: "DeepSkyBlue"},{ isStatic: false}))
@@ -128,11 +131,10 @@ function setup() {
     domino = blocks[5].body;
       constraint3 = Matter.Constraint.create({
         bodyA: domino,
-      pointA: {x: -10, y: 50} ,
+        pointA: {x: -10, y: 50} ,
         pointB: {x: domino.position.x-11, y: domino.position.y+50} ,
+    });
 
-
-      });
 Matter.World.add(engine.world, [constraint3]);
 
 
@@ -177,6 +179,8 @@ Matter.World.add(engine.world, [constraint3]);
         // remember the collision for processing in 'beforeUpdate'
         collisions.push({ hit: bodyBlock.plugin.block, ball: bodyBall })
         console.log('hit')
+        console.log(domino.position.x)
+
       }
     }
   })
