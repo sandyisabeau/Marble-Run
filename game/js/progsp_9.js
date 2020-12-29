@@ -18,6 +18,7 @@ let catapultSpacer
 let constraint2
 let domino
 let constraint3
+let isSmall = true;
 
 
 class Block {
@@ -83,7 +84,9 @@ function setup() {
   // create an engine
   engine = Matter.Engine.create()
 
-  blocks.push(new Block('rect',{ x: 7020, y: 250 , w: 75, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
+  blocks.push(new Block('rect',{ x: 120, y: 650 , w: 200, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
+
+  // aus dem weggeraeumt weil sonst die blocks[] zahlen nicht stimmen, koennen spaeter benutzt werden
   blocks.push(new Block('rect',{ x: 8025, y: 335, w: 75, h: 75, color: "DeepSkyBlue" }, { isStatic: true }))
   blocks.push(new Block('rect',{ x: 9040, y: 410, w: 75, h: 75, color: "lightgrey" }, { isStatic: false, frictionAir: 0 }))
 
@@ -162,7 +165,7 @@ Matter.World.add(engine.world, [constraint3]);
     })
     Matter.World.add(engine.world, ball)
     balls.push(ball)
-console.log(balls)
+console.log(blocks)
 
 
   // Process collisions - check whether ball hits a Block object
@@ -228,6 +231,7 @@ function startEngine() {
 function draw() {
   background(255)
   noStroke()
+blocks[0].attrs.x = 120 + Math.sin(frameCount/10)*300;
 
   blocks.forEach(block => block.show())
   fill(255, 0, 255)
@@ -299,5 +303,11 @@ function keyPressed(){
   switch (keyCode) {
     case 32:
   engine.world.gravity.y = -engine.world.gravity.y;
-balls[0].body.circleRadius = 30;
-    break;}}
+  if (isSmall) {
+       Matter.Body.scale(balls[0], 1.25, 1.25);
+     } else {
+       Matter.Body.scale(balls[0], 0.8, 0.8);
+     }
+     isSmall = !isSmall; // toggle isSmall variable
+   }
+    }
