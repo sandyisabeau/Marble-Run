@@ -83,19 +83,24 @@ function setup() {
   // create an engine
   engine = Matter.Engine.create()
 
-  blocks.push(new Block('rect',{ x: 720, y: 250 , w: 75, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
-  blocks.push(new Block('rect',{ x: 825, y: 335, w: 75, h: 75, color: "DeepSkyBlue" }, { isStatic: true }))
-  blocks.push(new Block('rect',{ x: 940, y: 410, w: 75, h: 75, color: "lightgrey" }, { isStatic: false, frictionAir: 0 }))
+  blocks.push(new Block('rect',{ x: 7020, y: 250 , w: 75, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
+  blocks.push(new Block('rect',{ x: 8025, y: 335, w: 75, h: 75, color: "DeepSkyBlue" }, { isStatic: true }))
+  blocks.push(new Block('rect',{ x: 9040, y: 410, w: 75, h: 75, color: "lightgrey" }, { isStatic: false, frictionAir: 0 }))
 
   blocks.push(new Block('rect',{ x: 150 , y: 100 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
-  blocks.push(new Block('rect',{ x: 500 , y: 150 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
+  blocks.push(new Block('rect',{ x: 500 , y: 140 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
   blocks.push(new Block('rect',{ x: 286 , y: 47 , w: 22, h: 100, color: "blue", chgStatic: false }, { isStatic: false, angle: PI/32, friction: 0}))
   blocks.push(new Block('rect',{ x: 620 , y: 75 , w: 20, h: 100, color: "blue" }, { isStatic: false, angle: PI/32, friction: 0 }))
-  blocks.push(new Block('rect',{ x: 900, y: 550, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
+  blocks.push(new Block('rect',{ x: 700, y: 450, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
   blocks.push(new Block('rect',{ x: 450, y: 780, w: 350, h: 35, color: "DeepSkyBlue"},{ isStatic: false}))
   blocks.push(new Block('rect',{ x: 450, y: 820, w: 20, h: 50, color: "black" }, { isStatic: true }))
   blocks.push(new Block('rect',{ x: 375, y: 850, w: 500, h: 20, color: "black" }, { isStatic: true }))
   blocks.push(new Block('rect',{ x: 380 , y: 138 , w: 250, h: 30, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
+
+  blocks.push(new Block('rect',{ x: 400, y: 440, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
+  blocks.push(new Block('rect',{ x: 1000, y: 470, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
+  blocks.push(new Block('rect',{ x: 40, y: 120, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
+
   // blocks.push(new Block('circle', { x: 10, y: 20, s: 10, color: 'blue' }, { isStatic: false }))
   // blocks.push(new Block('circle', { x: 100, y: 50, s: 40, color: 'blue' }, { isStatic: false }))
   //
@@ -148,17 +153,17 @@ Matter.World.add(engine.world, [constraint3]);
   mouseConstraint.mouse.pixelRatio = pixelDensity()
   Matter.World.add(engine.world, mouseConstraint)
 
-  // react on mouseup: create new balls
-  Matter.Events.on(mouseConstraint, 'mouseup', function(event) {
-    let ball = Matter.Bodies.circle(event.mouse.position.x, event.mouse.position.y, 16, {
+  // create ball
+
+    let ball = Matter.Bodies.circle(100, 50, 16, {
       restitution: 0.5,
       density: 0.1,
       friction: 0.0
     })
     Matter.World.add(engine.world, ball)
     balls.push(ball)
-    Matter.Body.applyForce(ball, ball.position, { x: 0.5, y: -1.5 })
-  })
+console.log(balls)
+
 
   // Process collisions - check whether ball hits a Block object
   Matter.Events.on(engine, 'collisionStart', function(event) {
@@ -289,3 +294,10 @@ function drawVertices(vertices) {
   })
   endShape(CLOSE)
 }
+
+function keyPressed(){
+  switch (keyCode) {
+    case 32:
+  engine.world.gravity.y = -engine.world.gravity.y;
+balls[0].body.circleRadius = 30;
+    break;}}
