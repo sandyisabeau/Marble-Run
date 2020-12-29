@@ -13,11 +13,7 @@ let blocks = []
 let balls = []
 // collisions are needed to save
 let collisions = []
-let catapult
-let catapultSpacer
-let constraint2
 let domino
-let constraint3
 let isSmall = true;
 
 
@@ -39,6 +35,13 @@ class Block {
         this.body = Matter.Bodies.fromVertices(0, 0, shape, this.options)
         Matter.Body.setPosition(this.body, this.attrs)
         break
+        case 'path':
+          let path = document.getElementById(attrs.elem)
+          if (null != path) {
+            this.body = Matter.Bodies.fromVertices(0, 0, Matter.Vertices.scale(Matter.Svg.pathToVertices(path, 10), this.attrs.scale, this.attrs.scale), this.options)
+            Matter.Body.setPosition(this.body, this.attrs)
+          }
+          break
     }
     Matter.World.add(engine.world, [this.body])
   }
@@ -83,67 +86,45 @@ function setup() {
 
   // create an engine
   engine = Matter.Engine.create()
+//aufzug1
+  blocks.push(new Block('rect',{ x: 120, y: 650 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
+  blocks.push(new Block('rect',{ x: 320, y: 650 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
+  blocks.push(new Block('rect',{ x: 170, y: 705 , w: 200, h: 20, color: "DeepSkyBlue" }, { isStatic: true}))
 
-  blocks.push(new Block('rect',{ x: 120, y: 650 , w: 200, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
-
-  // aus dem weggeraeumt weil sonst die blocks[] zahlen nicht stimmen, koennen spaeter benutzt werden
-  blocks.push(new Block('rect',{ x: 8025, y: 335, w: 75, h: 75, color: "DeepSkyBlue" }, { isStatic: true }))
-  blocks.push(new Block('rect',{ x: 9040, y: 410, w: 75, h: 75, color: "lightgrey" }, { isStatic: false, frictionAir: 0 }))
 
   blocks.push(new Block('rect',{ x: 150 , y: 100 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
   blocks.push(new Block('rect',{ x: 500 , y: 140 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
+//domino
   blocks.push(new Block('rect',{ x: 286 , y: 47 , w: 22, h: 100, color: "blue", chgStatic: false }, { isStatic: false, angle: PI/32, friction: 0}))
+//obere schwarze blöcke
   blocks.push(new Block('rect',{ x: 620 , y: 75 , w: 20, h: 100, color: "blue" }, { isStatic: false, angle: PI/32, friction: 0 }))
   blocks.push(new Block('rect',{ x: 700, y: 450, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
-  blocks.push(new Block('rect',{ x: 450, y: 780, w: 350, h: 35, color: "DeepSkyBlue"},{ isStatic: false}))
-  blocks.push(new Block('rect',{ x: 450, y: 820, w: 20, h: 50, color: "black" }, { isStatic: true }))
-  blocks.push(new Block('rect',{ x: 375, y: 850, w: 500, h: 20, color: "black" }, { isStatic: true }))
   blocks.push(new Block('rect',{ x: 380 , y: 138 , w: 250, h: 30, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
-
   blocks.push(new Block('rect',{ x: 400, y: 440, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
   blocks.push(new Block('rect',{ x: 1000, y: 470, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
   blocks.push(new Block('rect',{ x: 40, y: 120, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
 
-  // blocks.push(new Block('circle', { x: 10, y: 20, s: 10, color: 'blue' }, { isStatic: false }))
-  // blocks.push(new Block('circle', { x: 100, y: 50, s: 40, color: 'blue' }, { isStatic: false }))
-  //
-  // create a body from points
-  // let pts = [{ x: 0, y: 0 }, { x: 176, y: 15 }, { x: 174, y: 35 }, { x: 225, y: 40 }, { x: 227, y: 20 }, { x: 405, y: 35 }, { x: 402, y: 55 }, { x: 454, y: 60 }, { x: 455, y: 40 }, { x: 650, y: 60 }, { x: 647, y: 91 }, { x: 0, y: 35 }]
-  // blocks.push(new Block('points', { x: 350, y: 100, points: pts, color: 'black' }, { isStatic: true}))
-
-  //catapult
-  let body = blocks[2].body
-  let constraint = Matter.Constraint.create({
-    bodyA: body,
-    pointB: { x: body.position.x , y: body.position.y }
-  });
-
-  catapult = blocks[7].body;
-  constraint2 = Matter.Constraint.create({
-    pointA: {x: catapult.position.x, y: catapult.position.y},
-    bodyB: catapult,
-    stiffness: 1,
-    length: 0
-  });
-
-    Matter.World.add(engine.world, [constraint, constraint2]);
-
-    // balls and catapult spacer for limit
-    catapultSpacer = blocks[8].body;
-    Matter.World.add(engine.world, [catapultSpacer]);
-
-    // ground
-    ground = blocks[9].body;
-    Matter.World.add(engine.world, [ground]);
+// zähne
+  let pts1 = [{ x: 0, y: 0 }, { x: 900, y: 0 }, { x: 900, y: 100 }, { x: 600, y: 40 }, { x: 600, y: 100 }, { x: 300, y: 40 }, { x: 300, y: 100 }, { x: 1, y: 40 }]
+  let pts2 = [{ x: 0, y: 0 }, { x: 300, y: -100 }, { x: 300, y: -40 }, { x: 600, y: -100 }, { x: 600, y: -40 }, { x: 900, y: -100 }, { x: 900, y: -40 }, { x: 0, y: 0 }]
+  blocks.push(new Block('points', { x: 500, y: 900, points: pts1, color: 'black' }, { isStatic: true}))
+  blocks.push(new Block('points', { x: 700, y: 1100, points: pts2, color: 'black' }, { isStatic: true}))
+  blocks.push(new Block('rect',{ x: 40, y: 910, w: 30, h: 100, color: "black" }, { isStatic: true, friction: 0}))
+  blocks.push(new Block('rect',{ x: 240, y:1100, w: 30, h: 100, color: "black" }, { isStatic: true, friction: 0}))
+// block links neben quallen
+  blocks.push(new Block('rect',{ x: 140, y:1350, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
+// quallen
+  blocks.push(new Block('path', { x: 400, y: 1600, elem: 'jellyfish', scale: 0.8, color: 'violet', force: { x: 0.0, y: -1.0 } }, { isStatic: true, friction: 0.0, restitution: 300 }))
+  blocks.push(new Block('path', { x: 700, y: 1700, elem: 'jellyfish', scale: 0.8, color: 'violet', force: { x: 0.0, y: -1.0 } }, { isStatic: true, friction: 0.0, restitution: 300 }))
 
     domino = blocks[5].body;
-      constraint3 = Matter.Constraint.create({
+      constraint = Matter.Constraint.create({
         bodyA: domino,
         pointA: {x: -10, y: 50} ,
         pointB: {x: domino.position.x-11, y: domino.position.y+50} ,
     });
 
-Matter.World.add(engine.world, [constraint3]);
+Matter.World.add(engine.world, [constraint]);
 
 
   // setup mouse
@@ -231,7 +212,11 @@ function startEngine() {
 function draw() {
   background(255)
   noStroke()
-blocks[0].attrs.x = 120 + Math.sin(frameCount/10)*300;
+
+//aufzug 1 bewegung
+    Matter.Body.setPosition(blocks[0].body, {x: 320 +Math.sin(frameCount/100)* 300, y: 650})
+    Matter.Body.setPosition(blocks[1].body, {x: 520 +Math.sin(frameCount/100)* 300, y: 650})
+    Matter.Body.setPosition(blocks[2].body, {x: 420 +Math.sin(frameCount/100)* 300, y: 690})
 
   blocks.forEach(block => block.show())
   fill(255, 0, 255)
