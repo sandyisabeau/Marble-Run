@@ -7,12 +7,14 @@ Homeworks.aufgabe = 8;
 let engine
 let polySynth
 let mouseConstraint
+let ball
 // blocks are Block class instances/objects, which can react to balls and have attributes together with a Matter body
 let blocks = []
 // balls are just plain Matter bodys right now
 let balls = []
 // collisions are needed to save
 let collisions = []
+let layers = []
 let domino
 let isSmall = true;
 
@@ -82,7 +84,8 @@ class Block {
 function setup() {
   // enable sound
   polySynth = new p5.PolySynth()
-  let canvas = createCanvas(windowWidth, windowHeight)
+  let canvas = createCanvas(1000, 2000)
+
 
   // create an engine
   engine = Matter.Engine.create()
@@ -91,15 +94,16 @@ function setup() {
   blocks.push(new Block('rect',{ x: 320, y: 650 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
   blocks.push(new Block('rect',{ x: 170, y: 705 , w: 200, h: 20, color: "DeepSkyBlue" }, { isStatic: true}))
 
-
+// blöcke ganz oben
   blocks.push(new Block('rect',{ x: 150 , y: 100 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
   blocks.push(new Block('rect',{ x: 500 , y: 140 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
 //domino
-  blocks.push(new Block('rect',{ x: 286 , y: 47 , w: 22, h: 100, color: "blue", chgStatic: false }, { isStatic: false, angle: PI/32, friction: 0}))
-//obere schwarze blöcke
+  blocks.push(new Block('rect',{ x: 290 , y: 50 , w: 22, h: 100, color: "blue", chgStatic: false }, { isStatic: false, angle: PI/32, friction: 0}))
+// domino2
   blocks.push(new Block('rect',{ x: 620 , y: 75 , w: 20, h: 100, color: "blue" }, { isStatic: false, angle: PI/32, friction: 0 }))
+  //obere schwarze blöcke
   blocks.push(new Block('rect',{ x: 700, y: 450, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
-  blocks.push(new Block('rect',{ x: 380 , y: 138 , w: 250, h: 30, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
+  blocks.push(new Block('rect',{ x: 380 , y: 135 , w: 250, h: 15, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
   blocks.push(new Block('rect',{ x: 400, y: 440, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
   blocks.push(new Block('rect',{ x: 1000, y: 470, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
   blocks.push(new Block('rect',{ x: 40, y: 120, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
@@ -139,9 +143,9 @@ Matter.World.add(engine.world, [constraint]);
 
   // create ball
 
-    let ball = Matter.Bodies.circle(100, 50, 16, {
-      restitution: 0.5,
-      density: 0.1,
+  ball = Matter.Bodies.circle(100, 50, 16, {
+      restitution: 0,
+      density: 0.00001,
       friction: 0.0
     })
     Matter.World.add(engine.world, ball)
@@ -212,6 +216,8 @@ function startEngine() {
 function draw() {
   background(255)
   noStroke()
+scrollFollow(ball);
+
 
 //aufzug 1 bewegung
     Matter.Body.setPosition(blocks[0].body, {x: 320 +Math.sin(frameCount/100)* 300, y: 650})
@@ -284,9 +290,12 @@ function drawVertices(vertices) {
   endShape(CLOSE)
 }
 
+
+
 function keyPressed(){
   switch (keyCode) {
-    case 32:
+// Taste C
+    case 67:
   engine.world.gravity.y = -engine.world.gravity.y;
   if (isSmall) {
        Matter.Body.scale(balls[0], 1.25, 1.25);
@@ -296,3 +305,28 @@ function keyPressed(){
      isSmall = !isSmall; // toggle isSmall variable
    }
     }
+
+    function scrollFollow(matterObj) {
+      if (insideViewport(matterObj) == false) {
+        const $element = $('html, body');
+        if ($element.is(':animated') == false) {
+          $element.animate({
+            scrollLeft: ball.position.x,
+            scrollTop: ball.position.y
+          }, 1000);
+        }
+      }
+    }
+
+    function insideViewport(matterObj) {
+  const x = matterObj.position.x;
+  const y = matterObj.position.y;
+  const pageXOffset = window.pageXOffset || document.documentElement.scrollLeft;
+  const pageYOffset  = window.pageYOffset || document.documentElement.scrollTop;
+  if (x >= pageXOffset && x <= pageXOffset + windowWidth &&
+      y >= pageYOffset && y <= pageYOffset + windowHeight) {
+    return true;
+  } else {
+    return false;
+  }
+}
