@@ -70,13 +70,15 @@ class Block {
 
   update(ball) {
     polySynth.play('C4', 0.1, 0, 0.3);
+
+
     if (this.attrs.force) {
       Matter.Body.applyForce(ball, ball.position, this.attrs.force)
     }
-    if (domino.position.x >= 326 || this.attrs.chgStatic) {
-      Matter.Body.setStatic(this.body, true)
-    }
-  }
+    if (domino.position.x >= 326 && this.attrs.chgStatic) {
+         Matter.Body.setStatic(this.body, true)
+       }
+}
 
   show() {
     fill(this.attrs.color)
@@ -89,10 +91,12 @@ function setup() {
 
   // enable sound
   polySynth = new p5.PolySynth()
-  let canvas = createCanvas(windowWidth, 2000)
+  let canvas = createCanvas(windowWidth, 4000)
 
 //ball Bild
    ballImg = loadImage('ball.png');
+// blurryview Bild
+  viewImg = loadImage("view.png");
 
   // create an engine
   engine = Matter.Engine.create()
@@ -102,15 +106,18 @@ function setup() {
   blocks.push(new Block('rect',{ x: 170, y: 705 , w: 200, h: 20, color: "DeepSkyBlue" }, { isStatic: true}))
 
 // blöcke ganz oben
-  blocks.push(new Block('rect',{ x: 150 , y: 100 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
-  blocks.push(new Block('rect',{ x: 508 , y: 135 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
-//domino
-  blocks.push(new Block('rect',{ x: 290 , y: 50 , w: 22, h: 100, color: "blue", chgStatic: false }, { isStatic: false, angle: PI/32, friction: 0}))
-// domino2
-  blocks.push(new Block('rect',{ x: 620 , y: 75 , w: 20, h: 100, color: "blue" }, { isStatic: false, angle: PI/32, friction: 0 }))
+  blocks.push(new Block('rect',{ x: 150 , y: 100 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  blocks.push(new Block('rect',{ x: 427 , y: 123 , w: 90, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+//dominos
+  blocks.push(new Block('rect',{ x: 290 , y: 50 , w: 22, h: 100, color: "blue", chgStatic: true }, { isStatic: false, angle: PI/32, friction: 0}))
+  blocks.push(new Block('rect',{ x: 490 , y: 66 , w: 22, h: 100, color: "blue", chgStatic: true }, { isStatic: false, angle: PI/32, friction: 0}))
+  blocks.push(new Block('rect',{ x: 690 , y: 84 , w: 22, h: 100, color: "blue", }, { isStatic: false, angle: PI/32, friction: 0}))
+
   //obere schwarze blöcke
+  blocks.push(new Block('rect',{ x: 633 , y: 146 , w: 90, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+
   blocks.push(new Block('rect',{ x: 700, y: 450, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
-  blocks.push(new Block('rect',{ x: 380 , y: 135 , w: 250, h: 10, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
+  blocks.push(new Block('rect',{ x: 380 , y: 132 , w: 580, h: 15, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
   blocks.push(new Block('rect',{ x: 400, y: 440, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
   blocks.push(new Block('rect',{ x: 1000, y: 470, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
   blocks.push(new Block('rect',{ x: 40, y: 120, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
@@ -125,8 +132,23 @@ function setup() {
 // block links neben quallen
   blocks.push(new Block('rect',{ x: 140, y:1350, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 // quallen
-  blocks.push(new Block('path', { x: 400, y: 1600, elem: 'jellyfish', scale: 0.8, color: 'violet', force: { x: 0.0, y: -1.0 } }, { isStatic: true, friction: 0.0, restitution: 300 }))
-  blocks.push(new Block('path', { x: 700, y: 1700, elem: 'jellyfish', scale: 0.8, color: 'violet', force: { x: 0.0, y: -1.0 } }, { isStatic: true, friction: 0.0, restitution: 300 }))
+  blocks.push(new Block('path', { x: 350, y: 1500, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 } }, { isStatic: true, friction: 0.1, restitution: 3000 }))
+  blocks.push(new Block('path', { x: 480, y: 1700, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 } }, { isStatic: true, friction: 0.1, restitution: 3000 }))
+// stern
+ blocks.push(new Block('path', { x: 710, y: 1900, elem: 'star', scale: 0.6, color: 'orange' }, { isStatic: false}))
+// blöcke unterm stern
+blocks.push(new Block('rect',{ x: 700, y: 2350, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
+blocks.push(new Block('rect',{ x: 400, y: 2340, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
+blocks.push(new Block('rect',{ x: 1000, y: 2270, w: 30, h: 200, color: "black" }, { isStatic: true, friction: 0}))
+
+blocks.push(new Block('rect',{ x: 220, y: 2100, w: 600, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0}))
+blocks.push(new Block('rect',{ x: 10, y: 2100, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
+blocks.push(new Block('rect',{ x: 500, y: 2170, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
+// aufzug 2
+blocks.push(new Block('rect',{ x: 120, y: 2550 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
+blocks.push(new Block('rect',{ x: 320, y: 2550 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
+blocks.push(new Block('rect',{ x: 170, y: 2605 , w: 200, h: 20, color: "DeepSkyBlue" }, { isStatic: true}))
+
 
     domino = blocks[5].body;
       constraint = Matter.Constraint.create({
@@ -136,6 +158,32 @@ function setup() {
     });
 
 Matter.World.add(engine.world, [constraint]);
+
+    domino2 = blocks[6].body;
+      constraint2 = Matter.Constraint.create({
+        bodyA: domino2,
+        pointA: {x: -10, y: 50} ,
+        pointB: {x: domino2.position.x-11, y: domino2.position.y+50} ,
+    });
+
+Matter.World.add(engine.world, [constraint2]);
+
+    domino3 = blocks[7].body;
+      constraint3 = Matter.Constraint.create({
+        bodyA: domino3,
+        pointA: {x: -10, y: 50} ,
+        pointB: {x: domino3.position.x-11, y: domino3.position.y+50} ,
+    });
+
+Matter.World.add(engine.world, [constraint3]);
+
+star = blocks[21].body;
+      constraint4 = Matter.Constraint.create({
+        bodyA: star,
+        pointB: {x: star.position.x, y: star.position.y},
+    });
+
+Matter.World.add(engine.world, [constraint4]);
 
 
   // setup mouse
@@ -153,11 +201,11 @@ Matter.World.add(engine.world, [constraint]);
   ball = Matter.Bodies.circle(100, 50, 16, {
       restitution: 0.1,
       density: 0.1,
-      friction: 0.0
+      friction: 0
     })
     Matter.World.add(engine.world, ball)
     balls.push(ball)
-console.log(blocks)
+
 
 
   // Process collisions - check whether ball hits a Block object
@@ -236,6 +284,13 @@ drawSprite(ball, ballImg,scaleFish);
 
   blocks.forEach(block => block.show())
 
+//aufzug 2 bewegung
+    Matter.Body.setPosition(blocks[28].body, {x: 320 +Math.sin(frameCount/100)* 300, y: 2550})
+    Matter.Body.setPosition(blocks[29].body, {x: 520 +Math.sin(frameCount/100)* 300, y: 2550})
+    Matter.Body.setPosition(blocks[30].body, {x: 420 +Math.sin(frameCount/100)* 300, y: 2590})
+
+
+
   push();
   noFill();
   balls.forEach(ball => drawBody(ball))
@@ -250,6 +305,9 @@ drawSprite(ball, ballImg,scaleFish);
       drawConstraint(constraint)
     }
   })
+
+image(viewImg,ball.position.x-2850,ball.position.y-1600);
+
 }
 
 function drawMouse(mouseConstraint) {
