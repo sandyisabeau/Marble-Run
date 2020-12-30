@@ -8,6 +8,8 @@ let engine
 let polySynth
 let mouseConstraint
 let ball
+const Y_AXIS = 1;
+const X_AXIS = 2;
 // blocks are Block class instances/objects, which can react to balls and have attributes together with a Matter body
 let blocks = []
 // balls are just plain Matter bodys right now
@@ -17,6 +19,7 @@ let collisions = []
 let layers = []
 let domino
 let isSmall = true;
+let scaleFish = 0.05;
 
 
 class Block {
@@ -82,10 +85,14 @@ class Block {
 }
 
 function setup() {
+
+
   // enable sound
   polySynth = new p5.PolySynth()
-  let canvas = createCanvas(1000, 2000)
+  let canvas = createCanvas(windowWidth, 2000)
 
+//ball Bild
+   ballImg = loadImage('ball.png');
 
   // create an engine
   engine = Matter.Engine.create()
@@ -96,14 +103,14 @@ function setup() {
 
 // blöcke ganz oben
   blocks.push(new Block('rect',{ x: 150 , y: 100 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
-  blocks.push(new Block('rect',{ x: 500 , y: 140 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
+  blocks.push(new Block('rect',{ x: 508 , y: 135 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
 //domino
   blocks.push(new Block('rect',{ x: 290 , y: 50 , w: 22, h: 100, color: "blue", chgStatic: false }, { isStatic: false, angle: PI/32, friction: 0}))
 // domino2
   blocks.push(new Block('rect',{ x: 620 , y: 75 , w: 20, h: 100, color: "blue" }, { isStatic: false, angle: PI/32, friction: 0 }))
   //obere schwarze blöcke
   blocks.push(new Block('rect',{ x: 700, y: 450, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
-  blocks.push(new Block('rect',{ x: 380 , y: 135 , w: 250, h: 15, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
+  blocks.push(new Block('rect',{ x: 380 , y: 135 , w: 250, h: 10, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
   blocks.push(new Block('rect',{ x: 400, y: 440, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
   blocks.push(new Block('rect',{ x: 1000, y: 470, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
   blocks.push(new Block('rect',{ x: 40, y: 120, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
@@ -144,8 +151,8 @@ Matter.World.add(engine.world, [constraint]);
   // create ball
 
   ball = Matter.Bodies.circle(100, 50, 16, {
-      restitution: 0,
-      density: 0.00001,
+      restitution: 0.1,
+      density: 0.1,
       friction: 0.0
     })
     Matter.World.add(engine.world, ball)
@@ -214,9 +221,12 @@ function startEngine() {
 }
 
 function draw() {
-  background(255)
-  noStroke()
+  //hintergrund
+ setGradient(0, 0, windowWidth, 5000, color(0,153,153), color(0,51,102), Y_AXIS);
+
+   noStroke();
 scrollFollow(ball);
+drawSprite(ball, ballImg,scaleFish);
 
 
 //aufzug 1 bewegung
@@ -225,8 +235,12 @@ scrollFollow(ball);
     Matter.Body.setPosition(blocks[2].body, {x: 420 +Math.sin(frameCount/100)* 300, y: 690})
 
   blocks.forEach(block => block.show())
-  fill(255, 0, 255)
+
+  push();
+  noFill();
   balls.forEach(ball => drawBody(ball))
+  pop();
+
 
   stroke('green')
   engine.world.constraints.forEach((constraint, i) => {
@@ -299,8 +313,10 @@ function keyPressed(){
   engine.world.gravity.y = -engine.world.gravity.y;
   if (isSmall) {
        Matter.Body.scale(balls[0], 1.25, 1.25);
+       scaleFish=(0.05*1.25);
      } else {
        Matter.Body.scale(balls[0], 0.8, 0.8);
+       scaleFish=(0.05*0.8);
      }
      isSmall = !isSmall; // toggle isSmall variable
    }
@@ -329,4 +345,40 @@ function keyPressed(){
   } else {
     return false;
   }
+}
+
+function setGradient(x, y, w, h, c1, c2, axis) {
+  noFill();
+
+
+  if (axis === Y_AXIS) {
+    // Top to bottom gradient
+    for (let i = y; i <= y + h; i++) {
+      let inter = map(i, y, y + h, 0, 1);
+      let c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(x, i, x + w, i);
+    }
+  } else if (axis === X_AXIS) {
+    // Left to right gradient
+    for (let i = x; i <= x + w; i++) {
+      let inter = map(i, x, x + w, 0, 1);
+      let c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(i, y, i, y + h);
+    }
+  }
+}
+
+function drawSprite(body, img,scaleSprite) {
+  const pos = body.position;
+  const angle = body.angle;
+  const size = body.circleRadius
+  push();
+  translate(pos.x, pos.y);
+  rotate(angle);
+  scale(scaleSprite);
+  imageMode(CENTER);
+  image(img, 0, 0);
+  pop();
 }
