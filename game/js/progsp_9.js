@@ -98,6 +98,13 @@ function setup() {
 // blurryview Bild
   viewImg = loadImage("view.png");
 
+  // teeth Bild
+  teethImg = loadImage("teeth.png")
+  //shark Bild
+  sharkleftImg = loadImage("sharkleft.png")
+  sharkrightImg = loadImage("sharkright.png")
+
+
   // create an engine
   engine = Matter.Engine.create()
 //aufzug1
@@ -125,10 +132,10 @@ function setup() {
 // zähne
   let pts1 = [{ x: 0, y: 0 }, { x: 900, y: 0 }, { x: 900, y: 100 }, { x: 600, y: 40 }, { x: 600, y: 100 }, { x: 300, y: 40 }, { x: 300, y: 100 }, { x: 1, y: 40 }]
   let pts2 = [{ x: 0, y: 0 }, { x: 300, y: -100 }, { x: 300, y: -40 }, { x: 600, y: -100 }, { x: 600, y: -40 }, { x: 900, y: -100 }, { x: 900, y: -40 }, { x: 0, y: 0 }]
-  blocks.push(new Block('points', { x: 500, y: 900, points: pts1, color: 'black' }, { isStatic: true}))
-  blocks.push(new Block('points', { x: 700, y: 1100, points: pts2, color: 'black' }, { isStatic: true}))
-  blocks.push(new Block('rect',{ x: 40, y: 910, w: 30, h: 100, color: "black" }, { isStatic: true, friction: 0}))
-  blocks.push(new Block('rect',{ x: 240, y:1100, w: 30, h: 100, color: "black" }, { isStatic: true, friction: 0}))
+  blocks.push(new Block('points', { x: 500, y: 900, points: pts1, color:"transparent" }, { isStatic: true}))
+  blocks.push(new Block('points', { x: 700, y: 1100, points: pts2, color: "transparent" }, { isStatic: true}))
+  blocks.push(new Block('rect',{ x: 40, y: 910, w: 30, h: 100, color: "transparent" }, { isStatic: true, friction: 0}))
+  blocks.push(new Block('rect',{ x: 240, y:1100, w: 30, h: 100, color: "transparent" }, { isStatic: true, friction: 0}))
 // block links neben quallen
   blocks.push(new Block('rect',{ x: 140, y:1350, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 // quallen
@@ -312,6 +319,8 @@ drawSprite(ball, ballImg,scaleFish);
     }
   })
 
+image(teethImg,10, 580,1200,800);
+image(sharkleftImg,300, 3700,600,400);
 image(viewImg,ball.position.x-2850,ball.position.y-1600);
 
 }
