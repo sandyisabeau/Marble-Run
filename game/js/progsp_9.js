@@ -148,6 +148,12 @@ blocks.push(new Block('rect',{ x: 500, y: 2170, w: 30, h: 80, color: "black" }, 
 blocks.push(new Block('rect',{ x: 120, y: 2550 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
 blocks.push(new Block('rect',{ x: 320, y: 2550 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
 blocks.push(new Block('rect',{ x: 170, y: 2605 , w: 200, h: 20, color: "DeepSkyBlue" }, { isStatic: true}))
+// rutsche
+// blocks.push(new Block('path', { x: 720, y: 3300, elem: 'rutsche', scale: 2.0, color: 'green' }, { isStatic: true, friction: 0, angle: PI/2 }))
+blocks.push(new Block('rect',{ x: 720, y: 3300 , w: 1500, h: 50, color: "green" }, { isStatic: true, angle: -PI/4}))
+blocks.push(new Block('rect',{ x: 140, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
+blocks.push(new Block('rect',{ x: 10, y:3920, w: 30, h: 350, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
+
 
 
     domino = blocks[5].body;
@@ -394,7 +400,7 @@ function keyPressed(){
 
     function insideViewport(matterObj) {
   const x = matterObj.position.x;
-  const y = matterObj.position.y;
+  const y = matterObj.position.y + 100;
   const pageXOffset = window.pageXOffset || document.documentElement.scrollLeft;
   const pageYOffset  = window.pageYOffset || document.documentElement.scrollTop;
   if (x >= pageXOffset && x <= pageXOffset + windowWidth &&
