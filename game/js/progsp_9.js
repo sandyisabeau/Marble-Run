@@ -158,8 +158,13 @@ blocks.push(new Block('rect',{ x: 170, y: 2605 , w: 200, h: 20, color: "DeepSkyB
 // rutsche
 // blocks.push(new Block('path', { x: 720, y: 3300, elem: 'rutsche', scale: 2.0, color: 'green' }, { isStatic: true, friction: 0, angle: PI/2 }))
 blocks.push(new Block('rect',{ x: 720, y: 3300 , w: 1500, h: 50, color: "green" }, { isStatic: true, angle: -PI/4}))
+// blöcke beim hai
 blocks.push(new Block('rect',{ x: 140, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 blocks.push(new Block('rect',{ x: 10, y:3920, w: 30, h: 350, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
+
+blocks.push(new Block('rect',{ x: 940, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
+blocks.push(new Block('rect',{ x: 1240, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0}))
+blocks.push(new Block('rect',{ x: 810, y:3920, w: 30, h: 350, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 
 
 
@@ -309,6 +314,18 @@ drawSprite(ball, ballImg,scaleFish);
   balls.forEach(ball => drawBody(ball))
   pop();
 
+
+// ball wird von hai gefressen
+if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 && ball.position.y < 4000)){
+  scaleFish = 0
+
+  setTimeout(sharkEat,1000)
+}
+
+function sharkEat(){
+Matter.Body.setPosition(ball, {x:1000, y:3600});
+  scaleFish =0.05;
+sharkleftImg = sharkrightImg;}
 
   stroke('green')
   engine.world.constraints.forEach((constraint, i) => {
