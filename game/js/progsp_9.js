@@ -22,6 +22,14 @@ let isSmall = true;
 let scaleFish = 0.05;
 
 
+//sound effects
+function preload() {
+  soundFormats('mp3', 'wav');
+  biteSound = loadSound("bite");
+  airSound = loadSound("air");
+  bubblesSound = loadSound("bubbles");
+}
+
 class Block {
   constructor(type, attrs, options) {
     this.type = type
@@ -69,7 +77,7 @@ class Block {
   }
 
   update(ball) {
-    polySynth.play('C4', 0.1, 0, 0.3);
+    // polySynth.play('C4', 0.1, 0, 0.3);
 
 
     if (this.attrs.force) {
@@ -295,6 +303,8 @@ scrollFollow(ball);
 drawSprite(ball, ballImg,scaleFish);
 
 
+
+
 //aufzug 1 bewegung
     Matter.Body.setPosition(blocks[0].body, {x: 320 +Math.sin(frameCount/100)* 300, y: 650})
     Matter.Body.setPosition(blocks[1].body, {x: 520 +Math.sin(frameCount/100)* 300, y: 650})
@@ -318,7 +328,7 @@ drawSprite(ball, ballImg,scaleFish);
 // ball wird von hai gefressen
 if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 && ball.position.y < 4000)){
   scaleFish = 0
-
+biteSound.play();
   setTimeout(sharkEat,1000)
 }
 
@@ -401,6 +411,14 @@ function keyPressed(){
 // Taste C
     case 67:
   engine.world.gravity.y = -engine.world.gravity.y;
+  if (engine.world.gravity.y < 0){
+    airSound.play()
+  }
+  if (engine.world.gravity.y > 0){
+    bubblesSound.play()
+  }
+
+
   if (isSmall) {
        Matter.Body.scale(balls[0], 1.25, 1.25);
        scaleFish=(0.05*1.25);
