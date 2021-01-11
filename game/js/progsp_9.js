@@ -94,7 +94,11 @@ class Block {
   }
 }
 
+function preload(){img = loadImage('background.png');}
+
 function setup() {
+  img.loadPixels();
+  c = img.get(windowWidth, img.height);
 
 
   // enable sound
@@ -296,7 +300,9 @@ function startEngine() {
 
 function draw() {
   //hintergrund
- setGradient(0, 0, windowWidth, 5000, color(0,153,153), color(0,51,102), Y_AXIS);
+    background(c);
+  image(img, 0, 0 )
+ //setGradient(0, 0, windowWidth, 5000, color(0,153,153), color(0,51,102), Y_AXIS);
 
    noStroke();
 scrollFollow(ball);
