@@ -20,6 +20,8 @@ let layers = []
 let domino
 let isSmall = true;
 let scaleFish = 0.05;
+let sharkHit = 0;
+
 
 
 //sound effects
@@ -35,6 +37,7 @@ class Block {
     this.type = type
     this.attrs = attrs
     this.options = options
+    this.hit = false
     this.options.plugin = { block: this, update: this.update }
     switch (this.type) {
       case 'rect':
@@ -77,16 +80,21 @@ class Block {
   }
 
   update(ball) {
-    // polySynth.play('C4', 0.1, 0, 0.3);
+      // polySynth.play('C4', 0.1, 0, 0.3);
 
 
-    if (this.attrs.force) {
-      Matter.Body.applyForce(ball, ball.position, this.attrs.force)
-    }
-    if (domino.position.x >= 326 && this.attrs.chgStatic) {
-         Matter.Body.setStatic(this.body, true)
-       }
-}
+      if (this.attrs.force) {
+        Matter.Body.applyForce(ball, ball.position, this.attrs.force)
+      }
+      if (!this.hit && this.attrs.chgStatic) {
+           Matter.Body.setStatic(this.body, false)
+         }
+      if (this.body.angle >= PI/2 && this.attrs.chgStatic) {
+           Matter.Body.setStatic(this.body, true)
+           console.log('hugo')
+         }
+         this.hit = true
+  }
 
   show() {
     fill(this.attrs.color)
@@ -94,11 +102,11 @@ class Block {
   }
 }
 
-function preload(){img = loadImage('background.png');}
+function dominoStatic() {Matter.Body.setStatic(this.body, true);
+
+}
 
 function setup() {
-  img.loadPixels();
-  c = img.get(windowWidth, img.height);
 
 
   // enable sound
@@ -125,21 +133,21 @@ function setup() {
   blocks.push(new Block('rect',{ x: 170, y: 705 , w: 200, h: 20, color: "DeepSkyBlue" }, { isStatic: true}))
 
 // blöcke ganz oben
-  blocks.push(new Block('rect',{ x: 150 , y: 100 , w: 250, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
-  blocks.push(new Block('rect',{ x: 427 , y: 123 , w: 90, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  blocks.push(new Block('rect',{ x: 150 , y: 95 , w: 250, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  blocks.push(new Block('rect',{ x: 427 , y: 120 , w: 90, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 //dominos
-  blocks.push(new Block('rect',{ x: 290 , y: 50 , w: 22, h: 100, color: "blue", chgStatic: true }, { isStatic: false, angle: PI/32, friction: 0}))
-  blocks.push(new Block('rect',{ x: 490 , y: 66 , w: 22, h: 100, color: "blue", chgStatic: true }, { isStatic: false, angle: PI/32, friction: 0}))
-  blocks.push(new Block('rect',{ x: 690 , y: 84 , w: 22, h: 100, color: "blue", }, { isStatic: false, angle: PI/32, friction: 0}))
+  blocks.push(new Block('rect',{ x: 290 , y: 50 , w: 22, h: 100, color: "blue", chgStatic: true }, { isStatic: true, angle: PI/32, friction: 0}))
+  blocks.push(new Block('rect',{ x: 490 , y: 66 , w: 22, h: 100, color: "blue", chgStatic: true }, { isStatic: true, angle: PI/32, friction: 0}))
+  blocks.push(new Block('rect',{ x: 690 , y: 84 , w: 22, h: 100, color: "blue", chgStatic: true}, { isStatic: true, angle: PI/32, friction: 0}))
 
   //obere schwarze blöcke
-  blocks.push(new Block('rect',{ x: 633 , y: 146 , w: 90, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  blocks.push(new Block('rect',{ x: 633 , y: 141 , w: 90, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 
   blocks.push(new Block('rect',{ x: 700, y: 450, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
-  blocks.push(new Block('rect',{ x: 380 , y: 132 , w: 580, h: 15, color: "black" }, { isStatic: true, angle: PI/32, friction: 0 }))
+  blocks.push(new Block('rect',{ x: 380 , y: 136 , w: 580, h: 20, color: color(255,255,255,0) }, { isStatic: true, angle: PI/32, friction: 0 }))
   blocks.push(new Block('rect',{ x: 400, y: 440, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
-  blocks.push(new Block('rect',{ x: 1000, y: 470, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
-  blocks.push(new Block('rect',{ x: 40, y: 120, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
+  blocks.push(new Block('rect',{ x: 1000, y: 420, w: 30, h: 200, color: "black" }, { isStatic: true, friction: 0}))
+  blocks.push(new Block('rect',{ x: 40, y: 220, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
 
 // zähne
   let pts1 = [{ x: 0, y: 0 }, { x: 900, y: 0 }, { x: 900, y: 100 }, { x: 600, y: 40 }, { x: 600, y: 100 }, { x: 300, y: 40 }, { x: 300, y: 100 }, { x: 1, y: 40 }]
@@ -168,8 +176,8 @@ blocks.push(new Block('rect',{ x: 120, y: 2550 , w: 20, h: 75, color: "DeepSkyBl
 blocks.push(new Block('rect',{ x: 320, y: 2550 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
 blocks.push(new Block('rect',{ x: 170, y: 2605 , w: 200, h: 20, color: "DeepSkyBlue" }, { isStatic: true}))
 // rutsche
-// blocks.push(new Block('path', { x: 720, y: 3300, elem: 'rutsche', scale: 2.0, color: 'green' }, { isStatic: true, friction: 0, angle: PI/2 }))
-blocks.push(new Block('rect',{ x: 720, y: 3300 , w: 1500, h: 50, color: "green" }, { isStatic: true, angle: -PI/4}))
+blocks.push(new Block('path', { x: 820, y: 3100, elem: 'rutsche', scale: 2.5, color: 'green' }, { isStatic: true, friction: 0.001 }))
+// blocks.push(new Block('rect',{ x: 720, y: 3300 , w: 1500, h: 50, color: "green" }, { isStatic: true, angle: -PI/4}))
 // blöcke beim hai
 blocks.push(new Block('rect',{ x: 140, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 blocks.push(new Block('rect',{ x: 10, y:3920, w: 30, h: 350, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
@@ -177,7 +185,9 @@ blocks.push(new Block('rect',{ x: 10, y:3920, w: 30, h: 350, color: "black" }, {
 blocks.push(new Block('rect',{ x: 940, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 blocks.push(new Block('rect',{ x: 1240, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0}))
 blocks.push(new Block('rect',{ x: 810, y:3920, w: 30, h: 350, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
-
+// neuer block ganz oben
+blocks.push(new Block('rect',{ x: 920 , y: 165 , w: 250, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+blocks.push(new Block('rect',{ x: 275 , y: 195 , w: 500, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 
 
     domino = blocks[5].body;
@@ -300,9 +310,7 @@ function startEngine() {
 
 function draw() {
   //hintergrund
-    background(c);
-  image(img, 0, 0 )
- //setGradient(0, 0, windowWidth, 5000, color(0,153,153), color(0,51,102), Y_AXIS);
+ setGradient(0, 0, windowWidth, 5000, color(0,153,153), color(0,51,102), Y_AXIS);
 
    noStroke();
 scrollFollow(ball);
@@ -334,7 +342,10 @@ drawSprite(ball, ballImg,scaleFish);
 // ball wird von hai gefressen
 if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 && ball.position.y < 4000)){
   scaleFish = 0
-biteSound.play();
+  sharkHit = sharkHit+1
+  if (sharkHit ==1){
+  biteSound.play();
+}
   setTimeout(sharkEat,1000)
 }
 
@@ -342,6 +353,7 @@ function sharkEat(){
 Matter.Body.setPosition(ball, {x:1000, y:3600});
   scaleFish =0.05;
 sharkleftImg = sharkrightImg;}
+
 
   stroke('green')
   engine.world.constraints.forEach((constraint, i) => {
@@ -442,7 +454,7 @@ function keyPressed(){
         if ($element.is(':animated') == false) {
           $element.animate({
             scrollLeft: ball.position.x,
-            scrollTop: ball.position.y
+            scrollTop: ball.position.y-windowHeight/3
           }, 1000);
         }
       }
@@ -450,7 +462,7 @@ function keyPressed(){
 
     function insideViewport(matterObj) {
   const x = matterObj.position.x;
-  const y = matterObj.position.y + 100;
+  const y = matterObj.position.y+200;
   const pageXOffset = window.pageXOffset || document.documentElement.scrollLeft;
   const pageYOffset  = window.pageYOffset || document.documentElement.scrollTop;
   if (x >= pageXOffset && x <= pageXOffset + windowWidth &&
