@@ -19,18 +19,12 @@ let collisions = []
 let layers = []
 let domino
 let isSmall = true;
-let scaleFish = 0.05;
+let scaleFish = 0.07;
 let sharkHit = 0;
 
 
 
-//sound effects
-function preload() {
-  soundFormats('mp3', 'wav');
-  biteSound = loadSound("bite");
-  airSound = loadSound("air");
-  bubblesSound = loadSound("bubbles");
-}
+
 
 class Block {
   constructor(type, attrs, options) {
@@ -109,8 +103,15 @@ function dominoStatic() {Matter.Body.setStatic(this.body, true);
 function preload(){img = loadImage('background.png');}
 
 function setup() {
-  img.loadPixels();
-  c = img.get(windowWidth, img.height);
+
+  biteSound = loadSound("bite.mp3");
+  airSound = loadSound("air.mp3");
+  bubblesSound = loadSound("bubbles.mp3");
+airSound.setVolume(0.5);
+biteSound.setVolume(0.5);
+bubblesSound.setVolume(0.5);
+
+
 
 
   // enable sound
@@ -121,7 +122,7 @@ function setup() {
    ballImg = loadImage('ball.png');
 // blurryview Bild
   viewImg = loadImage("view.png");
-
+  backgroundImg = loadImage("background.png")
   // teeth Bild
   teethImg = loadImage("teeth.png")
   //shark Bild
@@ -183,11 +184,11 @@ blocks.push(new Block('rect',{ x: 170, y: 2605 , w: 200, h: 20, color: "DeepSkyB
 blocks.push(new Block('path', { x: 820, y: 3100, elem: 'rutsche', scale: 2.5, color: 'green' }, { isStatic: true, friction: 0.001 }))
 // blocks.push(new Block('rect',{ x: 720, y: 3300 , w: 1500, h: 50, color: "green" }, { isStatic: true, angle: -PI/4}))
 // blöcke beim hai
-blocks.push(new Block('rect',{ x: 140, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
-blocks.push(new Block('rect',{ x: 10, y:3920, w: 30, h: 350, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
+blocks.push(new Block('rect',{ x: 140, y:3950, w: 300, h:35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
+blocks.push(new Block('rect',{ x: 10, y:3820, w: 30, h: 550, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 
 blocks.push(new Block('rect',{ x: 940, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
-blocks.push(new Block('rect',{ x: 1240, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0}))
+blocks.push(new Block('rect',{ x: 1240, y:3950, w: 300, h: 120, color: "black" }, { isStatic: true, friction: 0}))
 blocks.push(new Block('rect',{ x: 810, y:3920, w: 30, h: 350, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 // neuer block ganz oben
 blocks.push(new Block('rect',{ x: 920 , y: 165 , w: 250, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
@@ -242,7 +243,7 @@ Matter.World.add(engine.world, [constraint4]);
 
   // create ball
 
-  ball = Matter.Bodies.circle(100, 50, 16, {
+  ball = Matter.Bodies.circle(100, 50, 22.4, {
       restitution: 0.1,
       density: 0.1,
       friction: 0
@@ -314,8 +315,7 @@ function startEngine() {
 
 function draw() {
   //hintergrund
-    background(c);
-  image(img, 0, 0 )
+    image(backgroundImg,0,0,windowWidth,4000);
 // setGradient(0, 0, windowWidth, 5000, color(0,153,153), color(0,51,102), Y_AXIS);
 
    noStroke();
@@ -445,10 +445,10 @@ function keyPressed(){
 
   if (isSmall) {
        Matter.Body.scale(balls[0], 1.25, 1.25);
-       scaleFish=(0.05*1.25);
+       scaleFish=(0.07*1.25);
      } else {
        Matter.Body.scale(balls[0], 0.8, 0.8);
-       scaleFish=(0.05*0.8);
+       scaleFish=(0.07);
      }
      isSmall = !isSmall; // toggle isSmall variable
    }
@@ -479,28 +479,28 @@ function keyPressed(){
   }
 }
 
-function setGradient(x, y, w, h, c1, c2, axis) {
-  noFill();
-
-
-  if (axis === Y_AXIS) {
-    // Top to bottom gradient
-    for (let i = y; i <= y + h; i++) {
-      let inter = map(i, y, y + h, 0, 1);
-      let c = lerpColor(c1, c2, inter);
-      stroke(c);
-      line(x, i, x + w, i);
-    }
-  } else if (axis === X_AXIS) {
-    // Left to right gradient
-    for (let i = x; i <= x + w; i++) {
-      let inter = map(i, x, x + w, 0, 1);
-      let c = lerpColor(c1, c2, inter);
-      stroke(c);
-      line(i, y, i, y + h);
-    }
-  }
-}
+// function setGradient(x, y, w, h, c1, c2, axis) {
+//   noFill();
+//
+//
+//   if (axis === Y_AXIS) {
+//     // Top to bottom gradient
+//     for (let i = y; i <= y + h; i++) {
+//       let inter = map(i, y, y + h, 0, 1);
+//       let c = lerpColor(c1, c2, inter);
+//       stroke(c);
+//       line(x, i, x + w, i);
+//     }
+//   } else if (axis === X_AXIS) {
+//     // Left to right gradient
+//     for (let i = x; i <= x + w; i++) {
+//       let inter = map(i, x, x + w, 0, 1);
+//       let c = lerpColor(c1, c2, inter);
+//       stroke(c);
+//       line(i, y, i, y + h);
+//     }
+//   }
+// }
 
 function drawSprite(body, img,scaleSprite) {
   const pos = body.position;
