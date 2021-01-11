@@ -80,6 +80,14 @@ class Block {
       if (this.attrs.force) {
         Matter.Body.applyForce(ball, ball.position, this.attrs.force)
       }
+
+if (this.attrs.isJellyfish){
+  boingSound.play();
+}
+if (this.attrs.isStar){
+  spinSound.play();
+}
+
       if (!this.hit && this.attrs.chgStatic) {
            Matter.Body.setStatic(this.body, false)
          }
@@ -107,9 +115,13 @@ function setup() {
   biteSound = loadSound("bite.mp3");
   airSound = loadSound("air.mp3");
   bubblesSound = loadSound("bubbles.mp3");
+  boingSound = loadSound("boing.mp3");
+  spinSound = loadSound("spin.mp3");
 airSound.setVolume(0.5);
 biteSound.setVolume(0.5);
 bubblesSound.setVolume(0.5);
+boingSound.setVolume(0.5);
+spinSound.setVolume(0.5);
 
 
 
@@ -164,10 +176,10 @@ bubblesSound.setVolume(0.5);
 // block links neben quallen
   blocks.push(new Block('rect',{ x: 140, y:1350, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 // quallen
-  blocks.push(new Block('path', { x: 350, y: 1500, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 } }, { isStatic: true, friction: 0.1, restitution: 3000 }))
-  blocks.push(new Block('path', { x: 480, y: 1700, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 } }, { isStatic: true, friction: 0.1, restitution: 3000 }))
+  blocks.push(new Block('path', { x: 350, y: 1500, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 }, isJellyfish: true }, { isStatic: true, friction: 0.1, restitution: 3000 }))
+  blocks.push(new Block('path', { x: 480, y: 1700, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 }, isJellyfish: true }, { isStatic: true, friction: 0.1, restitution: 3000 }))
 // stern
- blocks.push(new Block('path', { x: 710, y: 1900, elem: 'star', scale: 0.6, color: 'orange' }, { isStatic: false}))
+ blocks.push(new Block('path', { x: 710, y: 1900, elem: 'star', scale: 0.6, color: 'orange' , isStar: true}, { isStatic: false}))
 // blöcke unterm stern
 blocks.push(new Block('rect',{ x: 700, y: 2350, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
 blocks.push(new Block('rect',{ x: 400, y: 2340, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
