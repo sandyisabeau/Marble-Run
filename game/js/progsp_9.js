@@ -369,7 +369,7 @@ if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 &&
 
 function sharkEat(){
 Matter.Body.setPosition(ball, {x:1000, y:3600});
-  scaleFish =0.05;
+  scaleFish =0.07;
 sharkleftImg = sharkrightImg;}
 
 
