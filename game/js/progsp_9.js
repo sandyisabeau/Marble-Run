@@ -1,3 +1,4 @@
+Homeworks.aufgabe = 8;
 // Benedikt Groß
 // Example is based on examples from: http://brm.io/matter-js/, https://github.com/shiffman/p5-matter
 // Benno Stäbler: kopiert vom 02-mouse Beispiel, erweitert um komplexe Bodies und in die bekannte Struktur gebracht
@@ -20,7 +21,8 @@ let domino
 let isSmall = true;
 let scaleFish = 0.07;
 let sharkHit = 0;
-
+let magnet
+let isMagnetisch = false
 
 
 
@@ -84,8 +86,13 @@ if (this.attrs.isJellyfish){
   boingSound.play();
 }
 if (this.attrs.isStar){
+  isMagnetisch = true;
   spinSound.play();
+  Matter.Body.applyForce(blocks[21].body, {x: blocks[21].body.position.x-20,y:blocks[21].body.position.y-20} , {x:1,y:0})
+  setTimeout(starLetGo,3000);
 }
+
+
 
       if ((!this.hit && this.attrs.chgStatic)&&(this.body.isStatic = true)) {
            Matter.Body.setStatic(this.body, false)
@@ -296,6 +303,9 @@ Matter.World.add(engine.world, [constraint4]);
       collision.hit.update(collision.ball)
     });
     collisions = []
+    balls.forEach((ball, i) => {
+     attract(ball)
+   });
   })
 
   // double the gravity
@@ -526,3 +536,18 @@ function drawSprite(body, img,scaleSprite) {
   image(img, 0, 0);
   pop();
 }
+
+function attract(ball) {
+  magnet = blocks[21].body;
+  if (isMagnetisch) {
+    let force = {
+      x: ((magnet.position.x-20) - ball.position.x) * 1e-3,
+      y: (magnet.position.y - ball.position.y) * 1e-3,
+    }
+    console.log(force)
+    //Matter.Body.applyForce(ball, ball.position, Matter.Vector.neg(force));
+    Matter.Body.applyForce(ball, ball.position, force)
+  }
+}
+
+function starLetGo(){ isMagnetisch = false;}
