@@ -1,4 +1,3 @@
-Homeworks.aufgabe = 8;
 // Benedikt Groß
 // Example is based on examples from: http://brm.io/matter-js/, https://github.com/shiffman/p5-matter
 // Benno Stäbler: kopiert vom 02-mouse Beispiel, erweitert um komplexe Bodies und in die bekannte Struktur gebracht
@@ -88,7 +87,7 @@ if (this.attrs.isStar){
   spinSound.play();
 }
 
-      if (!this.hit && this.attrs.chgStatic) {
+      if ((!this.hit && this.attrs.chgStatic)&&(this.body.isStatic = true)) {
            Matter.Body.setStatic(this.body, false)
          }
       if (this.body.angle >= PI/2 && this.attrs.chgStatic) {
@@ -104,11 +103,11 @@ if (this.attrs.isStar){
   }
 }
 
-function dominoStatic() {Matter.Body.setStatic(this.body, true);
 
-}
 
-function preload(){img = loadImage('background.png');}
+
+
+
 
 function setup() {
 
@@ -117,7 +116,7 @@ function setup() {
   bubblesSound = loadSound("bubbles.mp3");
   boingSound = loadSound("boing.mp3");
   spinSound = loadSound("spin.mp3");
-airSound.setVolume(0.5);
+airSound.setVolume(0.7);
 biteSound.setVolume(0.5);
 bubblesSound.setVolume(0.5);
 boingSound.setVolume(0.5);
@@ -153,17 +152,17 @@ spinSound.setVolume(0.5);
   blocks.push(new Block('rect',{ x: 150 , y: 95 , w: 250, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
   blocks.push(new Block('rect',{ x: 427 , y: 120 , w: 90, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 //dominos
-  blocks.push(new Block('rect',{ x: 290 , y: 50 , w: 22, h: 100, color: "blue", chgStatic: true }, { isStatic: true, angle: PI/32, friction: 0}))
-  blocks.push(new Block('rect',{ x: 490 , y: 66 , w: 22, h: 100, color: "blue", chgStatic: true }, { isStatic: true, angle: PI/32, friction: 0}))
-  blocks.push(new Block('rect',{ x: 690 , y: 84 , w: 22, h: 100, color: "blue", chgStatic: true}, { isStatic: true, angle: PI/32, friction: 0}))
+  blocks.push(new Block('rect',{ x: 290 , y: 50 , w: 22, h: 100, color: "black", chgStatic: true }, { isStatic: true, angle: PI/32, friction: 0}))
+  blocks.push(new Block('rect',{ x: 490 , y: 66 , w: 22, h: 100, color: "black", chgStatic: true }, { isStatic: true, angle: PI/32, friction: 0}))
+  blocks.push(new Block('rect',{ x: 690 , y: 84 , w: 22, h: 100, color: "black", chgStatic: true}, { isStatic: true, angle: PI/32, friction: 0}))
 
   //obere schwarze blöcke
   blocks.push(new Block('rect',{ x: 633 , y: 141 , w: 90, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 
-  blocks.push(new Block('rect',{ x: 700, y: 450, w: 600, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
+  blocks.push(new Block('rect',{ x: 700, y: 450, w: 670, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
   blocks.push(new Block('rect',{ x: 380 , y: 136 , w: 580, h: 20, color: color(255,255,255,0) }, { isStatic: true, angle: PI/32, friction: 0 }))
-  blocks.push(new Block('rect',{ x: 400, y: 440, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
-  blocks.push(new Block('rect',{ x: 1000, y: 420, w: 30, h: 200, color: "black" }, { isStatic: true, friction: 0}))
+  blocks.push(new Block('rect',{ x: 380, y: 440, w: 30, h: 0, color: "black" }, { isStatic: true, friction: 0}))
+  blocks.push(new Block('rect',{ x: 1050, y: 420, w: 30, h: 200, color: "black" }, { isStatic: true, friction: 0}))
   blocks.push(new Block('rect',{ x: 40, y: 220, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
 
 // zähne
@@ -176,8 +175,8 @@ spinSound.setVolume(0.5);
 // block links neben quallen
   blocks.push(new Block('rect',{ x: 140, y:1350, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 // quallen
-  blocks.push(new Block('path', { x: 350, y: 1500, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 }, isJellyfish: true }, { isStatic: true, friction: 0.1, restitution: 3000 }))
-  blocks.push(new Block('path', { x: 480, y: 1700, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 }, isJellyfish: true }, { isStatic: true, friction: 0.1, restitution: 3000 }))
+  blocks.push(new Block('path', { x: 350, y: 1500, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 }, isJellyfish: true }, { isStatic: true, friction: 0.001, restitution: 300000000}))
+  blocks.push(new Block('path', { x: 480, y: 1700, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 }, isJellyfish: true }, { isStatic: true, friction: 0.001, restitution: 300000000}))
 // stern
  blocks.push(new Block('path', { x: 710, y: 1900, elem: 'star', scale: 0.6, color: 'orange' , isStar: true}, { isStatic: false}))
 // blöcke unterm stern
@@ -193,7 +192,7 @@ blocks.push(new Block('rect',{ x: 120, y: 2550 , w: 20, h: 75, color: "DeepSkyBl
 blocks.push(new Block('rect',{ x: 320, y: 2550 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
 blocks.push(new Block('rect',{ x: 170, y: 2605 , w: 200, h: 20, color: "DeepSkyBlue" }, { isStatic: true}))
 // rutsche
-blocks.push(new Block('path', { x: 820, y: 3100, elem: 'rutsche', scale: 2.5, color: 'green' }, { isStatic: true, friction: 0.001 }))
+blocks.push(new Block('path', { x: 820, y: 3100, elem: 'rutsche', scale: 2.5, color: 'green' }, { isStatic: true, friction: 0.1 }))
 // blocks.push(new Block('rect',{ x: 720, y: 3300 , w: 1500, h: 50, color: "green" }, { isStatic: true, angle: -PI/4}))
 // blöcke beim hai
 blocks.push(new Block('rect',{ x: 140, y:3950, w: 300, h:35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
@@ -257,7 +256,7 @@ Matter.World.add(engine.world, [constraint4]);
 
   ball = Matter.Bodies.circle(100, 50, 22.4, {
       restitution: 0.1,
-      density: 0.1,
+      density: 0.05,
       friction: 0
     })
     Matter.World.add(engine.world, ball)
@@ -338,16 +337,16 @@ drawSprite(ball, ballImg,scaleFish);
 
 
 //aufzug 1 bewegung
-    Matter.Body.setPosition(blocks[0].body, {x: 320 +Math.sin(frameCount/100)* 300, y: 650})
-    Matter.Body.setPosition(blocks[1].body, {x: 520 +Math.sin(frameCount/100)* 300, y: 650})
-    Matter.Body.setPosition(blocks[2].body, {x: 420 +Math.sin(frameCount/100)* 300, y: 690})
+    Matter.Body.setPosition(blocks[0].body, {x: 320 +Math.sin(frameCount/40)* 300, y: 650})
+    Matter.Body.setPosition(blocks[1].body, {x: 520 +Math.sin(frameCount/40)* 300, y: 650})
+    Matter.Body.setPosition(blocks[2].body, {x: 420 +Math.sin(frameCount/40)* 300, y: 690})
 
   blocks.forEach(block => block.show())
 
 //aufzug 2 bewegung
-    Matter.Body.setPosition(blocks[28].body, {x: 320 +Math.sin(frameCount/100)* 300, y: 2550})
-    Matter.Body.setPosition(blocks[29].body, {x: 520 +Math.sin(frameCount/100)* 300, y: 2550})
-    Matter.Body.setPosition(blocks[30].body, {x: 420 +Math.sin(frameCount/100)* 300, y: 2590})
+    Matter.Body.setPosition(blocks[28].body, {x: 300 +Math.sin(frameCount/40)* 300, y: 2550})
+    Matter.Body.setPosition(blocks[29].body, {x: 500 +Math.sin(frameCount/40)* 300, y: 2550})
+    Matter.Body.setPosition(blocks[30].body, {x: 400 +Math.sin(frameCount/40)* 300, y: 2590})
 
 
 
@@ -359,6 +358,7 @@ drawSprite(ball, ballImg,scaleFish);
 
 // ball wird von hai gefressen
 if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 && ball.position.y < 4000)){
+  Matter.Body.setPosition(ball, {x:250, y:3900});
   scaleFish = 0
   sharkHit = sharkHit+1
   if (sharkHit ==1){
@@ -456,10 +456,10 @@ function keyPressed(){
 
 
   if (isSmall) {
-       Matter.Body.scale(balls[0], 1.25, 1.25);
-       scaleFish=(0.07*1.25);
+       Matter.Body.scale(balls[0], 1.5, 1.5);
+       scaleFish=(0.07*1.5);
      } else {
-       Matter.Body.scale(balls[0], 0.8, 0.8);
+       Matter.Body.scale(balls[0], 0.66666666666, 0.66666666666);
        scaleFish=(0.07);
      }
      isSmall = !isSmall; // toggle isSmall variable
