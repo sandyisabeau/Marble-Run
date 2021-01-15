@@ -21,10 +21,8 @@ let domino
 let isSmall = true;
 let scaleFish = 0.07;
 let sharkHit = 0;
-let magnet
-let isMagnetisch = false
-
-
+let constraint5
+let starHit = 0;
 
 
 class Block {
@@ -86,10 +84,21 @@ if (this.attrs.isJellyfish){
   boingSound.play();
 }
 if (this.attrs.isStar){
-  isMagnetisch = true;
+
   spinSound.play();
-  Matter.Body.applyForce(blocks[21].body, {x: blocks[21].body.position.x-20,y:blocks[21].body.position.y-20} , {x:1,y:0})
-  setTimeout(starLetGo,3000);
+  Matter.Body.applyForce(blocks[21].body, {x: blocks[21].body.position.x-20,y:blocks[21].body.position.y-20} , {x:-1,y:0})
+
+starHit++
+if (starHit ==1){
+
+  constraint5 = Matter.Constraint.create({
+    bodyA: ball,
+    bodyB: star,
+});
+
+Matter.World.add(engine.world, [constraint5]);
+setTimeout(starLetGo,3000);
+}
 }
 
 
@@ -99,7 +108,7 @@ if (this.attrs.isStar){
          }
       if (this.body.angle >= PI/2 && this.attrs.chgStatic) {
            Matter.Body.setStatic(this.body, true)
-           console.log('hugo')
+
          }
          if (this.body.color = color(255,255,255,0) && this.body.position.x == 225 || this.body.position.x == 2600 ){
              setTimeout(restart,100);
@@ -145,7 +154,8 @@ spinSound.setVolume(0.5);
   viewImg = loadImage("view.png");
   backgroundImg = loadImage("background.png")
   // teeth Bild
-  teethImg = loadImage("teeth.png")
+  lowerteethImg = loadImage("lowerteeth.png")
+  upperteethImg = loadImage("upperteeth.png")
   //shark Bild
   sharkleftImg = loadImage("sharkleft.png")
   sharkrightImg = loadImage("sharkright.png")
@@ -180,7 +190,7 @@ spinSound.setVolume(0.5);
   let pts2 = [{ x: 0, y: 0 }, { x: 300, y: -100 }, { x: 300, y: -40 }, { x: 600, y: -100 }, { x: 600, y: -40 }, { x: 900, y: -100 }, { x: 900, y: -40 }, { x: 0, y: 0 }]
   blocks.push(new Block('points', { x: 500, y: 900, points: pts1, color:"transparent" }, { isStatic: true}))
   blocks.push(new Block('points', { x: 700, y: 1100, points: pts2, color: "transparent" }, { isStatic: true}))
-  blocks.push(new Block('rect',{ x: 40, y: 910, w: 30, h: 100, color: "transparent" }, { isStatic: true, friction: 0}))
+  blocks.push(new Block('rect',{ x: 40, y: 1010, w: 30, h: 290, color: "transparent" }, { isStatic: true, friction: 0}))
   blocks.push(new Block('rect',{ x: 240, y:1100, w: 30, h: 100, color: "transparent" }, { isStatic: true, friction: 0}))
 // block links neben quallen
   blocks.push(new Block('rect',{ x: 140, y:1350, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
@@ -195,7 +205,7 @@ blocks.push(new Block('rect',{ x: 400, y: 2340, w: 30, h: 80, color: "black" }, 
 blocks.push(new Block('rect',{ x: 1000, y: 2270, w: 30, h: 200, color: "black" }, { isStatic: true, friction: 0}))
 
 blocks.push(new Block('rect',{ x: 220, y: 2100, w: 600, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0}))
-blocks.push(new Block('rect',{ x: 10, y: 2100, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
+blocks.push(new Block('rect',{ x: 5, y: 2100, w: 25, h: 80, color: "black" }, { isStatic: true, friction: 0}))
 blocks.push(new Block('rect',{ x: 500, y: 2170, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
 // aufzug 2
 blocks.push(new Block('rect',{ x: 120, y: 2550 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
@@ -312,7 +322,7 @@ Matter.World.add(engine.world, [constraint4]);
     });
     collisions = []
     balls.forEach((ball, i) => {
-     attract(ball)
+    
    });
   })
 
@@ -367,6 +377,9 @@ drawSprite(ball, ballImg,scaleFish);
     Matter.Body.setPosition(blocks[30].body, {x: 400 +Math.sin(frameCount/40)* 300, y: 2590})
 
 
+    //zähne bewegung
+      Matter.Body.setPosition(blocks[14].body, {x: 500, y: 900 + Math.abs(Math.sin(frameCount/40)* 100)});
+
 
   push();
   noFill();
@@ -400,10 +413,10 @@ sharkleftImg = sharkrightImg;}
     }
   })
 
-image(teethImg,10, 580,1200,800);
+image(lowerteethImg,-20, 765,1200,800);
 image(sharkleftImg,300, 3700,600,400);
+image(upperteethImg,blocks[14].body.position.x-500,blocks[14].body.position.y-370,1200,900);
 image(viewImg,ball.position.x-2850,ball.position.y-1600);
-
 }
 
 function drawMouse(mouseConstraint) {
@@ -545,17 +558,7 @@ function drawSprite(body, img,scaleSprite) {
   pop();
 }
 
-function attract(ball) {
-  magnet = blocks[21].body;
-  if (isMagnetisch) {
-    let force = {
-      x: ((magnet.position.x-20) - ball.position.x) * 1e-3,
-      y: (magnet.position.y - ball.position.y) * 1e-3,
-    }
-    console.log(force)
-    //Matter.Body.applyForce(ball, ball.position, Matter.Vector.neg(force));
-    Matter.Body.applyForce(ball, ball.position, force)
-  }
-}
 
-function starLetGo(){ isMagnetisch = false;}
+
+function starLetGo(){
+Matter.World.remove(engine.world, [constraint5]);}
