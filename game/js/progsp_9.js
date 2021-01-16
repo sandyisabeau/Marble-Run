@@ -380,7 +380,6 @@ drawSprite(ball, ballImg,scaleFish);
     //zähne bewegung
       Matter.Body.setPosition(blocks[13].body, {x: 500, y: 900 + Math.abs(Math.sin(frameCount/40)* 100)});
 
-
   push();
   noFill();
   balls.forEach(ball => drawBody(ball))
