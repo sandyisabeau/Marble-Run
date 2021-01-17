@@ -23,7 +23,7 @@ let scaleFish = 0.07;
 let sharkHit = 0;
 let constraint5
 let starHit = 0;
-
+let jawHit= 0;
 
 class Block {
   constructor(type, attrs, options) {
@@ -135,11 +135,13 @@ function setup() {
   bubblesSound = loadSound("bubbles.mp3");
   boingSound = loadSound("boing.mp3");
   spinSound = loadSound("spin.mp3");
+  jawsSound = loadSound("jaws.mp3");
 airSound.setVolume(0.7);
 biteSound.setVolume(0.5);
 bubblesSound.setVolume(0.5);
 boingSound.setVolume(0.5);
 spinSound.setVolume(0.5);
+jawsSound.setVolume(0.5);
 
 
 
@@ -393,6 +395,7 @@ if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 &&
   sharkHit = sharkHit+1
   if (sharkHit ==1){
   biteSound.play();
+  jawsSound.stop();
 }
   setTimeout(sharkEat,1000)
 }
@@ -416,6 +419,14 @@ image(lowerteethImg,-20, 765,1200,800);
 image(sharkleftImg,300, 3700,600,400);
 image(upperteethImg,blocks[13].body.position.x-500,blocks[13].body.position.y-370,1200,900);
 image(viewImg,ball.position.x-2850,ball.position.y-1600);
+
+if (ball.position.y > 2620){
+  jawHit++
+  if (jawHit==1){
+  jawsSound.play();}
+}
+
+
 }
 
 function drawMouse(mouseConstraint) {
