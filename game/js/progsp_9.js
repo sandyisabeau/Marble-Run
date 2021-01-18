@@ -180,21 +180,21 @@ jawsSound.setVolume(0.5);
   /*2*/ blocks.push(new Block('rect',{ x: 170, y: 705 , w: 200, h: 20, color: color(0,255,255,0) }, { isStatic: true}))
 
 // blöcke ganz oben
-  /*3*/ blocks.push(new Block('rect',{ x: 150 , y: 95 , w: 250, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
-  /*4*/ blocks.push(new Block('rect',{ x: 427 , y: 120 , w: 90, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  /*3*/ blocks.push(new Block('rect',{ x: 150 , y: 95 , w: 250, h: 22, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  /*4*/ blocks.push(new Block('rect',{ x: 427 , y: 120 , w: 90, h: 22, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 //dominos
-  /*5*/ blocks.push(new Block('rect',{ x: 290 , y: 50 , w: 22, h: 100, color: "black", chgStatic: true }, { isStatic: true, angle: PI/32, friction: 0}))
-  /*6*/ blocks.push(new Block('rect',{ x: 490 , y: 66 , w: 22, h: 100, color: "black", chgStatic: true }, { isStatic: true, angle: PI/32, friction: 0}))
-  /*7*/ blocks.push(new Block('rect',{ x: 690 , y: 84 , w: 22, h: 100, color: "black", chgStatic: true}, { isStatic: true, angle: PI/32, friction: 0}))
+  /*5*/ blocks.push(new Block('rect',{ x: 290 , y: 50 , w: 22, h: 100, color: color(101, 51, 16), chgStatic: true }, { isStatic: true, angle: PI/32, friction: 0}))
+  /*6*/ blocks.push(new Block('rect',{ x: 490 , y: 66 , w: 22, h: 100, color: color(101, 51, 16), chgStatic: true }, { isStatic: true, angle: PI/32, friction: 0}))
+  /*7*/ blocks.push(new Block('rect',{ x: 690 , y: 84 , w: 22, h: 100, color: color(101, 51, 16), chgStatic: true}, { isStatic: true, angle: PI/32, friction: 0}))
 
   //obere schwarze blöcke
-  /*8*/ blocks.push(new Block('rect',{ x: 633 , y: 141 , w: 90, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  /*8*/ blocks.push(new Block('rect',{ x: 633 , y: 141 , w: 90, h: 22, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 
-  /*9*/ blocks.push(new Block('rect',{ x: 700, y: 380, w: 870, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
+  /*9*/ blocks.push(new Block('rect',{ x: 700, y: 380, w: 870, h: 35, color: color(101, 51, 16) }, { isStatic: true, angle: -PI/64, friction: 0}))
   /*10*/ blocks.push(new Block('rect',{ x: 380 , y: 136 , w: 580, h: 20, color: color(255,255,255,0) }, { isStatic: true, angle: PI/32, friction: 0 }))
-  /*11*/ blocks.push(new Block('rect',{ x: 380, y: 440, w: 30, h: 0, color: "black" }, { isStatic: true, friction: 0}))
+  /*11*/ blocks.push(new Block('rect',{ x: 380, y: 440, w: 30, h: 0, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
   // blocks.push(new Block('rect',{ x: 1050, y: 420, w: 30, h: 200, color: "black" }, { isStatic: true, friction: 0}))
-  /*12*/ blocks.push(new Block('rect',{ x: 40, y: 220, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
+  /*12*/ blocks.push(new Block('rect',{ x: 40, y: 220, w: 30, h: 80, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
 
 // zähne
   let pts1 = [{ x: 0, y: 0 }, { x: 900, y: 0 }, { x: 900, y: 100 }, { x: 600, y: 40 }, { x: 600, y: 100 }, { x: 300, y: 40 }, { x: 300, y: 100 }, { x: 1, y: 40 }]
@@ -204,19 +204,19 @@ jawsSound.setVolume(0.5);
   /*15*/ blocks.push(new Block('rect',{ x: 40, y: 1010, w: 30, h: 290, color: color(98,170,29) }, { isStatic: true, friction: 0}))
   /*16*/ blocks.push(new Block('rect',{ x: 240, y:1100, w: 30, h: 100, color: "transparent" }, { isStatic: true, friction: 0}))
 // block links neben quallen
-  /*17*/ blocks.push(new Block('rect',{ x: 140, y:1350, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
+  /*17*/ blocks.push(new Block('rect',{ x: 140, y:1350, w: 300, h: 35, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
 // quallen
   /*18*/ blocks.push(new Block('path', { x: 350, y: 1500, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 }, isJellyfish: true }, { isStatic: true, friction: 0.001, restitution: 300000000}))
   /*19*/ blocks.push(new Block('path', { x: 480, y: 1700, elem: 'jellyfish', scale: 0.6, color: 'violet', force: { x: 0.0, y: -1.0 }, isJellyfish: true }, { isStatic: true, friction: 0.001, restitution: 300000000}))
 // stern
  /*20*/ blocks.push(new Block('path', { x: 710, y: 1900, elem: 'star', scale: 0.6, color: 'orange' , isStar: true}, { isStatic: false}))
 // blöcke unterm stern
-  /*21*/ blocks.push(new Block('rect',{ x: 750, y: 2350, w: 700, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
+  /*21*/ blocks.push(new Block('rect',{ x: 750, y: 2350, w: 700, h: 35, color: color(101, 51, 16) }, { isStatic: true, angle: -PI/64, friction: 0}))
 // blocks.push(new Block('rect',{ x: 400, y: 2340, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
 // blocks.push(new Block('rect',{ x: 1000, y: 2270, w: 30, h: 200, color: "black" }, { isStatic: true, friction: 0}))
 
-  /*22*/ blocks.push(new Block('rect',{ x: 220, y: 2100, w: 600, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0}))
-  /*23*/ blocks.push(new Block('rect',{ x: 5, y: 2100, w: 25, h: 80, color: "black" }, { isStatic: true, friction: 0}))
+  /*22*/ blocks.push(new Block('rect',{ x: 220, y: 2100, w: 600, h: 35, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0}))
+  /*23*/ blocks.push(new Block('rect',{ x: 5, y: 2100, w: 25, h: 80, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
 // blocks.push(new Block('rect',{ x: 500, y: 2170, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
 // aufzug 2
   /*24*/ blocks.push(new Block('rect',{ x: 120, y: 2550 , w: 20, h: 75, color:color(0,255,255,0) }, { isStatic: true}))
@@ -226,21 +226,21 @@ jawsSound.setVolume(0.5);
   /*27*/ blocks.push(new Block('path', { x: 820, y: 3100, elem: 'rutsche', scale: 2.5, color: 'green' }, { isStatic: true, friction: 0.1 }))
 // blocks.push(new Block('rect',{ x: 720, y: 3300 , w: 1500, h: 50, color: "green" }, { isStatic: true, angle: -PI/4}))
 // blöcke beim hai
-  /*28*/ blocks.push(new Block('rect',{ x: 140, y:3950, w: 300, h:35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
+  /*28*/ blocks.push(new Block('rect',{ x: 140, y:3950, w: 300, h:35, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
   /*29*/ blocks.push(new Block('rect',{ x: 10, y:3820, w: 30, h: 550, color: color(255,255,255,0) }, { isStatic: true, friction: 0, angle: PI/32}))
 
-  /*30*/ blocks.push(new Block('rect',{ x: 940, y:3950, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
-  /*31*/ blocks.push(new Block('rect',{ x: 1240, y:3950, w: 300, h: 120, color: "black" }, { isStatic: true, friction: 0}))
+  /*30*/ blocks.push(new Block('rect',{ x: 940, y:3950, w: 300, h: 35, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
+  /*31*/ blocks.push(new Block('rect',{ x: 1240, y:3950, w: 300, h: 120, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
 // blocks.push(new Block('rect',{ x: 810, y:3920, w: 30, h: 350, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
 // neuer block ganz oben
-  /*32*/ blocks.push(new Block('rect',{ x: 920 , y: 165 , w: 250, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
-  /*33*/ blocks.push(new Block('rect',{ x: 275 , y: 195 , w: 500, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  /*32*/ blocks.push(new Block('rect',{ x: 920 , y: 165 , w: 250, h: 22, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  /*33*/ blocks.push(new Block('rect',{ x: 275 , y: 195 , w: 500, h: 35, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 // portal oben
   /*34*/ blocks.push(new Block('rect',{ x: 225 , y: 700 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true}, { isStatic: true, restitution: 0}))
 // portal unten
   /*35*/ blocks.push(new Block('rect',{ x: 225 , y: 2680 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true }, { isStatic: true, restitution: 0}))
   // stop oben
-   /*36*/ blocks.push(new Block('rect',{ x: 280, y: 370, w: 30, h: 75, color: "black" }, { isStatic: true, friction: 0}))
+   /*36*/ blocks.push(new Block('rect',{ x: 280, y: 370, w: 30, h: 75, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
 
 
     domino = blocks[5].body;
