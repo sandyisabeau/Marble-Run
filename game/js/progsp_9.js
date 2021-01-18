@@ -234,7 +234,7 @@ jawsSound.setVolume(0.5);
   /*31*/ blocks.push(new Block('rect',{ x: 1240, y:3950, w: 300, h: 120, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
 // blocks.push(new Block('rect',{ x: 810, y:3920, w: 30, h: 350, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
 // neuer block ganz oben
-  /*32*/ blocks.push(new Block('rect',{ x: 920 , y: 165 , w: 250, h: 22, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  /*32*/ blocks.push(new Block('rect',{ x: 930 , y: 165 , w: 250, h: 22, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
   /*33*/ blocks.push(new Block('rect',{ x: 275 , y: 195 , w: 500, h: 35, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 // portal oben
   /*34*/ blocks.push(new Block('rect',{ x: 225 , y: 700 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true}, { isStatic: true, restitution: 0}))
