@@ -127,6 +127,7 @@ setTimeout(starLetGo,3000);
 }
 function restart() {
   Matter.Body.setPosition(ball, {x:100, y:60});
+   failSound.play();
 }
 function awake(){
   Matter.Body.setStatic(ball, false)
@@ -134,6 +135,7 @@ function awake(){
 function setup() {
 
   biteSound = loadSound("bite.mp3");
+  failSound = loadSound("fail.mp3")
   airSound = loadSound("air.mp3");
   bubblesSound = loadSound("bubbles.mp3");
   boingSound = loadSound("boing.mp3");
