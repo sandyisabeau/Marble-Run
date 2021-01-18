@@ -238,7 +238,7 @@ jawsSound.setVolume(0.5);
 // portal unten
   /*35*/ blocks.push(new Block('rect',{ x: 225 , y: 2680 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true }, { isStatic: true, restitution: 0}))
   // stop oben
-   /*36*/ blocks.push(new Block('rect',{ x: 280, y: 420, w: 30, h: 75, color: "black" }, { isStatic: true, friction: 0}))
+   /*36*/ blocks.push(new Block('rect',{ x: 280, y: 370, w: 30, h: 75, color: "black" }, { isStatic: true, friction: 0}))
 
 
     domino = blocks[5].body;
