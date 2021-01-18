@@ -25,6 +25,16 @@ let constraint5
 let starHit = 0;
 let jawHit= 0;
 
+function preload(){
+    biteSound = loadSound("bite.mp3");
+    failSound = loadSound("fail.mp3");
+    airSound = loadSound("air.mp3");
+    bubblesSound = loadSound("bubbles.mp3");
+    boingSound = loadSound("boing.mp3");
+    spinSound = loadSound("spin.mp3");
+    jawsSound = loadSound("jaws.mp3");
+}
+
 class Block {
   constructor(type, attrs, options) {
     this.type = type
@@ -84,16 +94,17 @@ if (this.attrs.isJellyfish){
   boingSound.play();
 }
 if (this.attrs.isStar){
-
+if (starHit ==0){
   spinSound.play();
-  Matter.Body.applyForce(blocks[20].body, {x: blocks[20].body.position.x-20,y:blocks[20].body.position.y-20} , {x:-1,y:0})
+  Matter.Body.applyForce(blocks[20].body, {x: blocks[20].body.position.x-20,y:blocks[20].body.position.y-20} , {x:-10,y:0});
 
-starHit++
-if (starHit ==1){
+starHit++;
+
 
   constraint5 = Matter.Constraint.create({
     bodyA: ball,
     bodyB: star,
+    // pointB: {x:0,y:-200},
 });
 
 Matter.World.add(engine.world, [constraint5]);
@@ -135,13 +146,6 @@ function awake(){
 }
 function setup() {
 
-  biteSound = loadSound("bite.mp3");
-  failSound = loadSound("fail.mp3");
-  airSound = loadSound("air.mp3");
-  bubblesSound = loadSound("bubbles.mp3");
-  boingSound = loadSound("boing.mp3");
-  spinSound = loadSound("spin.mp3");
-  jawsSound = loadSound("jaws.mp3");
 airSound.setVolume(0.7);
 biteSound.setVolume(0.5);
 bubblesSound.setVolume(0.5);
@@ -441,7 +445,7 @@ sharkleftImg = sharkrightImg;}
   })
 
 image(lowerteethImg,-20, 765,1200,800);
-image(sharkleftImg,250, 3650,600,400);
+image(sharkleftImg,250,3650,600,400);
 image(upperteethImg,blocks[13].body.position.x-500,blocks[13].body.position.y-370,1200,900);
 image(crabImg,blocks[1].body.position.x-270,blocks[1].body.position.y-70,350,250);
 image(crabImg,blocks[25].body.position.x-270,blocks[25].body.position.y-70,350,250);
