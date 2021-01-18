@@ -422,11 +422,11 @@ if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 &&
   biteSound.play();
   jawsSound.stop();
 }
-  setTimeout(sharkEat,1000)
+  setTimeout(sharkEat,100)
 }
 
 function sharkEat(){
-Matter.Body.setPosition(ball, {x:1000, y:3600});
+Matter.Body.setPosition(ball, {x:1000, y:3910});
   scaleFish =0.07;
 sharkleftImg = sharkrightImg;}
 
