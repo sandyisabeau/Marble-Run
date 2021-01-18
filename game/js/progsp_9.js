@@ -154,7 +154,7 @@ jawsSound.setVolume(0.5);
 
   // enable sound
   polySynth = new p5.PolySynth()
-  let canvas = createCanvas(windowWidth, 4000)
+  let canvas = createCanvas(windowWidth, 4100)
 
 //ball Bild
    ballImg = loadImage('ball.png');
@@ -368,7 +368,7 @@ function startEngine() {
 
 function draw() {
   //hintergrund
-    image(backgroundImg,0,0,windowWidth,4000);
+    image(backgroundImg,0,0,windowWidth,4100);
 
     //bubbles
     image(bubblesGif,-10,250,350,300);
@@ -441,7 +441,7 @@ sharkleftImg = sharkrightImg;}
   })
 
 image(lowerteethImg,-20, 765,1200,800);
-image(sharkleftImg,300, 3700,600,400);
+image(sharkleftImg,250, 3650,600,400);
 image(upperteethImg,blocks[13].body.position.x-500,blocks[13].body.position.y-370,1200,900);
 image(crabImg,blocks[1].body.position.x-270,blocks[1].body.position.y-70,350,250);
 image(crabImg,blocks[25].body.position.x-270,blocks[25].body.position.y-70,350,250);
