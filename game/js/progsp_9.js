@@ -99,7 +99,7 @@ if (this.attrs.isStar){
 if (starHit ==0){
   isMagnetisch = true;
   spinSound.play();
-  Matter.Body.applyForce(blocks[20].body, {x: blocks[20].body.position.x-20,y:blocks[20].body.position.y-20} , {x:-10,y:-5});
+  Matter.Body.applyForce(blocks[20].body, {x: blocks[20].body.position.x,y:blocks[20].body.position.y-100} , {x:-3,y:0});
 
 starHit++;
 
