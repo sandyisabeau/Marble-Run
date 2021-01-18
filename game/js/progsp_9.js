@@ -110,7 +110,10 @@ setTimeout(starLetGo,3000);
            Matter.Body.setStatic(this.body, true)
 
          }
-         if (this.body.color = color(255,255,255,0) && this.body.position.x == 225 || this.body.position.x == 2600 ){
+         if (this.attrs.isPortal ){
+           sharkHit = 0;
+           jawHit = 0;
+           starHit = 0;
              setTimeout(restart,100);
              Matter.Body.setStatic(ball, true);
              setTimeout(awake, 1000)
@@ -162,13 +165,17 @@ jawsSound.setVolume(0.5);
   sharkleftImg = loadImage("sharkleft.png")
   sharkrightImg = loadImage("sharkright.png")
 
+  crabImg = loadImage("crab.png")
+
+
+
 
   // create an engine
   engine = Matter.Engine.create()
 //aufzug1
-  /*0*/ blocks.push(new Block('rect',{ x: 120, y: 650 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
-  /*1*/ blocks.push(new Block('rect',{ x: 320, y: 650 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
-  /*2*/ blocks.push(new Block('rect',{ x: 170, y: 705 , w: 200, h: 20, color: "DeepSkyBlue" }, { isStatic: true}))
+  /*0*/ blocks.push(new Block('rect',{ x: 120, y: 650 , w: 20, h: 75, color: color(0,255,255,0) }, { isStatic: true}))
+  /*1*/ blocks.push(new Block('rect',{ x: 320, y: 650 , w: 20, h: 75, color: color(0,255,255,0) }, { isStatic: true}))
+  /*2*/ blocks.push(new Block('rect',{ x: 170, y: 705 , w: 200, h: 20, color: color(0,255,255,0) }, { isStatic: true}))
 
 // blöcke ganz oben
   /*3*/ blocks.push(new Block('rect',{ x: 150 , y: 95 , w: 250, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
@@ -181,7 +188,7 @@ jawsSound.setVolume(0.5);
   //obere schwarze blöcke
   /*8*/ blocks.push(new Block('rect',{ x: 633 , y: 141 , w: 90, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 
-  /*9*/ blocks.push(new Block('rect',{ x: 700, y: 450, w: 870, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
+  /*9*/ blocks.push(new Block('rect',{ x: 700, y: 380, w: 870, h: 35, color: "black" }, { isStatic: true, angle: -PI/64, friction: 0}))
   /*10*/ blocks.push(new Block('rect',{ x: 380 , y: 136 , w: 580, h: 20, color: color(255,255,255,0) }, { isStatic: true, angle: PI/32, friction: 0 }))
   /*11*/ blocks.push(new Block('rect',{ x: 380, y: 440, w: 30, h: 0, color: "black" }, { isStatic: true, friction: 0}))
   // blocks.push(new Block('rect',{ x: 1050, y: 420, w: 30, h: 200, color: "black" }, { isStatic: true, friction: 0}))
@@ -192,7 +199,7 @@ jawsSound.setVolume(0.5);
   let pts2 = [{ x: 0, y: 0 }, { x: 300, y: -100 }, { x: 300, y: -40 }, { x: 600, y: -100 }, { x: 600, y: -40 }, { x: 900, y: -100 }, { x: 900, y: -40 }, { x: 0, y: 0 }]
   /*13*/ blocks.push(new Block('points', { x: 500, y: 900, points: pts1, color:"transparent" }, { isStatic: true}))
   /*14*/ blocks.push(new Block('points', { x: 700, y: 1100, points: pts2, color: "transparent" }, { isStatic: true}))
-  /*15*/ blocks.push(new Block('rect',{ x: 40, y: 1010, w: 30, h: 290, color: color(98,170,29) }, { isStatic: true, friction: 0}))
+  /*15*/ blocks.push(new Block('rect',{ x: 40, y: 1010, w: 30, h: 290, color: "transparent" }, { isStatic: true, friction: 0}))
   /*16*/ blocks.push(new Block('rect',{ x: 240, y:1100, w: 30, h: 100, color: "transparent" }, { isStatic: true, friction: 0}))
 // block links neben quallen
   /*17*/ blocks.push(new Block('rect',{ x: 140, y:1350, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
@@ -210,9 +217,9 @@ jawsSound.setVolume(0.5);
   /*23*/ blocks.push(new Block('rect',{ x: 5, y: 2100, w: 25, h: 80, color: "black" }, { isStatic: true, friction: 0}))
 // blocks.push(new Block('rect',{ x: 500, y: 2170, w: 30, h: 80, color: "black" }, { isStatic: true, friction: 0}))
 // aufzug 2
-  /*24*/ blocks.push(new Block('rect',{ x: 120, y: 2550 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
-  /*25*/ blocks.push(new Block('rect',{ x: 320, y: 2550 , w: 20, h: 75, color: "DeepSkyBlue" }, { isStatic: true}))
-  /*26*/ blocks.push(new Block('rect',{ x: 170, y: 2605 , w: 200, h: 20, color: "DeepSkyBlue" }, { isStatic: true}))
+  /*24*/ blocks.push(new Block('rect',{ x: 120, y: 2550 , w: 20, h: 75, color:color(0,255,255,0) }, { isStatic: true}))
+  /*25*/ blocks.push(new Block('rect',{ x: 320, y: 2550 , w: 20, h: 75, color:color(0,255,255,0) }, { isStatic: true}))
+  /*26*/ blocks.push(new Block('rect',{ x: 170, y: 2605 , w: 200, h: 20, color:color(0,255,255,0) }, { isStatic: true}))
 // rutsche
   /*27*/ blocks.push(new Block('path', { x: 820, y: 3100, elem: 'rutsche', scale: 2.5, color: 'green' }, { isStatic: true, friction: 0.1 }))
 // blocks.push(new Block('rect',{ x: 720, y: 3300 , w: 1500, h: 50, color: "green" }, { isStatic: true, angle: -PI/4}))
@@ -227,12 +234,11 @@ jawsSound.setVolume(0.5);
   /*32*/ blocks.push(new Block('rect',{ x: 920 , y: 165 , w: 250, h: 22, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
   /*33*/ blocks.push(new Block('rect',{ x: 275 , y: 195 , w: 500, h: 35, color: "black" }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 // portal oben
-  /*34*/ blocks.push(new Block('rect',{ x: 225 , y: 700 , w: 400, h: 20, color: color(255,255,255,0) }, { isStatic: true, restitution: 0}))
+  /*34*/ blocks.push(new Block('rect',{ x: 225 , y: 700 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true}, { isStatic: true, restitution: 0}))
 // portal unten
-  /*35*/ blocks.push(new Block('rect',{ x: 225 , y: 2600 , w: 400, h: 20, color: color(255,255,255,0) }, { isStatic: true, restitution: 0}))
+  /*35*/ blocks.push(new Block('rect',{ x: 225 , y: 2680 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true }, { isStatic: true, restitution: 0}))
   // stop oben
-  /*36*/ blocks.push(new Block('rect',{ x: 280, y: 420, w: 30, h: 75, color: "black" }, { isStatic: true, friction: 0}))
-
+   /*36*/ blocks.push(new Block('rect',{ x: 280, y: 420, w: 30, h: 75, color: "black" }, { isStatic: true, friction: 0}))
 
 
     domino = blocks[5].body;
@@ -369,9 +375,9 @@ drawSprite(ball, ballImg,scaleFish);
 
 
 //aufzug 1 bewegung
-    Matter.Body.setPosition(blocks[0].body, {x: 320 +Math.sin(frameCount/40)* 300, y: 650})
-    Matter.Body.setPosition(blocks[1].body, {x: 520 +Math.sin(frameCount/40)* 300, y: 650})
-    Matter.Body.setPosition(blocks[2].body, {x: 420 +Math.sin(frameCount/40)* 300, y: 690})
+    Matter.Body.setPosition(blocks[0].body, {x: 320 +Math.sin(frameCount/40)* 300, y: 570})
+    Matter.Body.setPosition(blocks[1].body, {x: 520 +Math.sin(frameCount/40)* 300, y: 570})
+    Matter.Body.setPosition(blocks[2].body, {x: 420 +Math.sin(frameCount/40)* 300, y: 610})
 
   blocks.forEach(block => block.show())
 
@@ -420,6 +426,8 @@ sharkleftImg = sharkrightImg;}
 image(lowerteethImg,-20, 765,1200,800);
 image(sharkleftImg,300, 3700,600,400);
 image(upperteethImg,blocks[13].body.position.x-500,blocks[13].body.position.y-370,1200,900);
+image(crabImg,blocks[1].body.position.x-270,blocks[1].body.position.y-70,350,250);
+image(crabImg,blocks[25].body.position.x-270,blocks[25].body.position.y-70,350,250);
 image(viewImg,ball.position.x-2850,ball.position.y-1600);
 
 if (ball.position.y > 2620){
