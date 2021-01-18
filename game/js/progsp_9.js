@@ -199,7 +199,7 @@ jawsSound.setVolume(0.5);
   let pts2 = [{ x: 0, y: 0 }, { x: 300, y: -100 }, { x: 300, y: -40 }, { x: 600, y: -100 }, { x: 600, y: -40 }, { x: 900, y: -100 }, { x: 900, y: -40 }, { x: 0, y: 0 }]
   /*13*/ blocks.push(new Block('points', { x: 500, y: 900, points: pts1, color:"transparent" }, { isStatic: true}))
   /*14*/ blocks.push(new Block('points', { x: 700, y: 1100, points: pts2, color: "transparent" }, { isStatic: true}))
-  /*15*/ blocks.push(new Block('rect',{ x: 40, y: 1010, w: 30, h: 290, color: "transparent" }, { isStatic: true, friction: 0}))
+  /*15*/ blocks.push(new Block('rect',{ x: 40, y: 1010, w: 30, h: 290, color: color(98,170,29) }, { isStatic: true, friction: 0}))
   /*16*/ blocks.push(new Block('rect',{ x: 240, y:1100, w: 30, h: 100, color: "transparent" }, { isStatic: true, friction: 0}))
 // block links neben quallen
   /*17*/ blocks.push(new Block('rect',{ x: 140, y:1350, w: 300, h: 35, color: "black" }, { isStatic: true, friction: 0, angle: PI/32}))
