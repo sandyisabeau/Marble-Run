@@ -24,6 +24,8 @@ let sharkHit = 0;
 let constraint5
 let starHit = 0;
 let jawHit= 0;
+let magnet
+let isMagnetisch = false
 
 function preload(){
     biteSound = loadSound("bite.mp3");
@@ -95,19 +97,12 @@ if (this.attrs.isJellyfish){
 }
 if (this.attrs.isStar){
 if (starHit ==0){
+  isMagnetisch = true;
   spinSound.play();
-  Matter.Body.applyForce(blocks[20].body, {x: blocks[20].body.position.x-20,y:blocks[20].body.position.y-20} , {x:-10,y:0});
+  Matter.Body.applyForce(blocks[20].body, {x: blocks[20].body.position.x-20,y:blocks[20].body.position.y-20} , {x:-10,y:-5});
 
 starHit++;
 
-
-  constraint5 = Matter.Constraint.create({
-    bodyA: ball,
-    bodyB: star,
-    // pointB: {x:0,y:-200},
-});
-
-Matter.World.add(engine.world, [constraint5]);
 setTimeout(starLetGo,3000);
 }
 }
@@ -340,6 +335,7 @@ Matter.World.add(engine.world, [constraint4]);
     });
     collisions = []
     balls.forEach((ball, i) => {
+      attract(ball)
 
    });
   })
@@ -563,28 +559,7 @@ function keyPressed(){
   }
 }
 
-// function setGradient(x, y, w, h, c1, c2, axis) {
-//   noFill();
-//
-//
-//   if (axis === Y_AXIS) {
-//     // Top to bottom gradient
-//     for (let i = y; i <= y + h; i++) {
-//       let inter = map(i, y, y + h, 0, 1);
-//       let c = lerpColor(c1, c2, inter);
-//       stroke(c);
-//       line(x, i, x + w, i);
-//     }
-//   } else if (axis === X_AXIS) {
-//     // Left to right gradient
-//     for (let i = x; i <= x + w; i++) {
-//       let inter = map(i, x, x + w, 0, 1);
-//       let c = lerpColor(c1, c2, inter);
-//       stroke(c);
-//       line(i, y, i, y + h);
-//     }
-//   }
-// }
+
 
 function drawSprite(body, img,scaleSprite) {
   const pos = body.position;
@@ -599,7 +574,17 @@ function drawSprite(body, img,scaleSprite) {
   pop();
 }
 
+function attract(ball) {
+   magnet = blocks[20].body;
+   if (isMagnetisch) {
+     let force = {
+       x: ((magnet.position.x-20) - ball.position.x) * 1e-3,
+       y: (magnet.position.y - ball.position.y) * 1e-3,
+     }
+     console.log(force)
+     //Matter.Body.applyForce(ball, ball.position, Matter.Vector.neg(force));
+     Matter.Body.applyForce(ball, ball.position, force)
+   }
+ }
 
-
-function starLetGo(){
-Matter.World.remove(engine.world, [constraint5]);}
+  function starLetGo(){ isMagnetisch = false;}
