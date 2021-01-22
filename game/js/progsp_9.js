@@ -578,8 +578,8 @@ function attract(ball) {
    magnet = blocks[20].body;
    if (isMagnetisch) {
      let force = {
-       x: ((magnet.position.x-20) - ball.position.x) * 1e-3,
-       y: (magnet.position.y - ball.position.y) * 1e-3,
+       x: ((magnet.position.x) - ball.position.x) * 0.005,
+       y: (magnet.position.y - ball.position.y) * 0.005,
      }
      console.log(force)
      //Matter.Body.applyForce(ball, ball.position, Matter.Vector.neg(force));
@@ -587,4 +587,9 @@ function attract(ball) {
    }
  }
 
-  function starLetGo(){ isMagnetisch = false;}
+  function starLetGo(){
+    magnet = blocks[21].body;
+    setTimeout(starLetGotwo,3000);}
+  function starLetGotwo(){
+
+    isMagnetisch = false;}
