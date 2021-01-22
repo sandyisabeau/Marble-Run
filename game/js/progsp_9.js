@@ -26,6 +26,7 @@ let starHit = 0;
 let jawHit= 0;
 let magnet
 let isMagnetisch = false
+let sharkx = 250
 
 function preload(){
     biteSound = loadSound("bite.mp3");
@@ -157,6 +158,7 @@ jawsSound.setVolume(0.5);
 
 //ball Bild
    ballImg = loadImage('ball.png');
+   pearlImg = loadImage('pearl.png');
 // blurryview Bild
   viewImg = loadImage("view.png");
   backgroundImg = loadImage("background.png")
@@ -230,18 +232,17 @@ jawsSound.setVolume(0.5);
   /*28*/ blocks.push(new Block('rect',{ x: 140, y:3950, w: 300, h:35, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
   /*29*/ blocks.push(new Block('rect',{ x: 10, y:3820, w: 30, h: 550, color: color(255,255,255,0) }, { isStatic: true, friction: 0, angle: PI/32}))
 
-  /*30*/ blocks.push(new Block('rect',{ x: 940, y:3950, w: 300, h: 35, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
-  /*31*/ blocks.push(new Block('rect',{ x: 1240, y:3950, w: 300, h: 120, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
+  /*30*/ blocks.push(new Block('rect',{ x: 1240, y:4000, w: 600, h: 35, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
 // blocks.push(new Block('rect',{ x: 810, y:3920, w: 30, h: 350, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
 // neuer block ganz oben
-  /*32*/ blocks.push(new Block('rect',{ x: 930 , y: 165 , w: 250, h: 22, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
-  /*33*/ blocks.push(new Block('rect',{ x: 275 , y: 195 , w: 500, h: 35, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  /*31*/ blocks.push(new Block('rect',{ x: 930 , y: 165 , w: 250, h: 22, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
+  /*32*/ blocks.push(new Block('rect',{ x: 275 , y: 195 , w: 500, h: 35, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 // portal oben
-  /*34*/ blocks.push(new Block('rect',{ x: 225 , y: 700 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true}, { isStatic: true, restitution: 0}))
+  /*33*/ blocks.push(new Block('rect',{ x: 225 , y: 700 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true}, { isStatic: true, restitution: 0}))
 // portal unten
-  /*35*/ blocks.push(new Block('rect',{ x: 225 , y: 2680 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true }, { isStatic: true, restitution: 0}))
+  /*34*/ blocks.push(new Block('rect',{ x: 225 , y: 2680 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true }, { isStatic: true, restitution: 0}))
   // stop oben
-   /*36*/ blocks.push(new Block('rect',{ x: 280, y: 370, w: 30, h: 75, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
+   /*35*/ blocks.push(new Block('rect',{ x: 280, y: 370, w: 30, h: 75, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
 
 
     domino = blocks[5].body;
@@ -417,6 +418,9 @@ drawSprite(ball, ballImg,scaleFish);
 if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 && ball.position.y < 4000)){
   Matter.Body.setPosition(ball, {x:250, y:3900});
   scaleFish = 0
+  sharkleftImg = sharkrightImg;
+  ballImg=pearlImg;
+  while (sharkx<600) { sharkx += 20;}
   sharkHit = sharkHit+1
   if (sharkHit ==1){
   biteSound.play();
@@ -428,7 +432,7 @@ if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 &&
 function sharkEat(){
 Matter.Body.setPosition(ball, {x:1000, y:3910});
   scaleFish =0.07;
-sharkleftImg = sharkrightImg;}
+}
 
 
   stroke('green')
@@ -441,7 +445,7 @@ sharkleftImg = sharkrightImg;}
   })
 
 image(lowerteethImg,-20, 765,1200,800);
-image(sharkleftImg,250,3650,600,400);
+image(sharkleftImg,sharkx,3750,300,225);
 image(upperteethImg,blocks[13].body.position.x-500,blocks[13].body.position.y-370,1200,900);
 image(crabImg,blocks[1].body.position.x-270,blocks[1].body.position.y-70,350,250);
 image(crabImg,blocks[25].body.position.x-270,blocks[25].body.position.y-70,350,250);
