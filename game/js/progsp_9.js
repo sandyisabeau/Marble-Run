@@ -171,6 +171,11 @@ jawsSound.setVolume(0.5);
 
   crabImg = loadImage("crab.png")
   bubblesGif = loadImage("bubbles.gif")
+    
+//Deko  
+  koralleImg = loadImage("koralle.png")
+     alge1Img = loadImage("alge1.png")
+    alge2Img = loadImage("alge2.png")
 
 
 
@@ -450,6 +455,28 @@ image(upperteethImg,blocks[13].body.position.x-500,blocks[13].body.position.y-37
 image(crabImg,blocks[1].body.position.x-270,blocks[1].body.position.y-70,350,250);
 image(crabImg,blocks[25].body.position.x-270,blocks[25].body.position.y-70,350,250);
 image(viewImg,ball.position.x-2850,ball.position.y-1600);
+    
+    //deko
+image(koralleImg, 150, 107, 60, 60);
+image(koralleImg, 30, 95, 60, 60);
+image(koralleImg, 810, 84, 60, 60);
+image(koralleImg, 160, 1275, 60, 60);
+image(alge2Img, 70, 75, 80, 90);
+image(alge1Img, 860, 93, 50, 60);
+image(alge1Img, 15, 1265, 60, 60);
+//unter Stern
+image(alge2Img, 750, 2247, 80, 90);
+image(alge2Img, 810, 2240, 80, 90);
+image(alge1Img, 910, 2236, 80, 90);
+image(alge2Img, 650, 2248, 80, 90);
+image(alge1Img, 500, 2257, 80, 90);
+//beim hai
+image(koralleImg, 1350, 3938, 60, 60);
+image(koralleImg, 10, 3865, 60, 60);
+image(alge2Img, 1240, 3900, 80, 90);
+image(alge1Img, 1190, 3925, 60, 60);
+    
+    
 
 if (ball.position.y > 2620){
   jawHit++
