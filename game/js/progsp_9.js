@@ -144,10 +144,13 @@ function addNewBall(){
   Matter.World.add(engine.world, ball)
   balls.push(ball)
   Matter.Body.setPosition(ball, {x:100, y:60});
-  isSmall = true;
-  Matter.Body.scale(balls[0], 0.66666666666, 0.66666666666);
+
   scaleFish=(0.07);
-  engine.world.gravity.y = 1;
+  if (engine.world.gravity.y <0){
+    engine.world.gravity.y = 1;
+  Matter.Body.scale(balls[0], 0.66666666666, 0.66666666666);
+isSmall = true;
+  ;}
   Matter.Body.setStatic(ball, false);
 
 }
