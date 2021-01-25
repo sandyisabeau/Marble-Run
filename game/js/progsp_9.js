@@ -267,9 +267,11 @@ jawsSound.setVolume(0.5);
    /*35*/ blocks.push(new Block('rect',{ x: 280, y: 370, w: 30, h: 75, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
 // portal vor Krabbe
   /*36*/ blocks.push(new Block('rect',{ x: 1350 , y: 370 , w: 400, h: 20, color: color(255, 255, 255,0), isPortal: true}, { isStatic: true, restitution: 0}))
-   /*37*/ blocks.push(new Block('rect',{ x: 1100, y: 1770, w: 30, h: 1100, color: color(255,255,255,0) }, { isStatic: true, friction: 0}))
-// unsichtbare Kante oben
-    /*38*/ blocks.push(new Block('rect',{ x: 1150 , y: 800 , w: 20, h: 500, color: color(255, 255, 255,0)}, { isStatic: true, restitution: 0}))
+  /*37*/ blocks.push(new Block('rect',{ x: 1100, y: 1770, w: 30, h: 1100, color: color(255,255,255,0) }, { isStatic: true, friction: 0}))
+//unsichtbare Kante nach Falltür
+   /*38*/ blocks.push(new Block('rect',{ x: 1140 , y: 300 , w: 20, h: 100, color: color(255, 255, 255,0)}, { isStatic: true, restitution: 0}))
+// unsichtbare Kante nach Krabbe
+   /*39*/ blocks.push(new Block('rect',{ x: 1150 , y: 800 , w: 20, h: 500, color: color(255, 255, 255,0)}, { isStatic: true, restitution: 0}))
 
 
     domino = blocks[5].body;
