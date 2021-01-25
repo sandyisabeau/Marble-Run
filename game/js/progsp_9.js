@@ -475,7 +475,6 @@ image(zackenImg,20,2680,300,30)
 image(zacken2Img,1150,360,300,30)
 image(crabImg,blocks[1].body.position.x-270,blocks[1].body.position.y-70,350,250);
 image(crabImg,blocks[25].body.position.x-270,blocks[25].body.position.y-70,350,250);
-image(viewImg,ball.position.x-2850,ball.position.y-1600);
     
     //deko
 image(koralleImg, 150, 107, 60, 60);
@@ -496,6 +495,8 @@ image(koralleImg, 1350, 3938, 60, 60);
 image(koralleImg, 10, 3865, 60, 60);
 image(alge2Img, 1240, 3900, 80, 90);
 image(alge1Img, 1190, 3925, 60, 60);
+    
+    image(viewImg,ball.position.x-2850,ball.position.y-1600);
     
     
 
