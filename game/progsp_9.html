@@ -29,8 +29,7 @@
   <script type="text/javascript" src="lib/matter.js"></script>
   <script language="javascript" type="text/javascript" src="lib/jquery.min.js"></script>
 
-  <!-- Hausaufgaben Verwaltung -->
-  <script type="text/javascript" src="lib/homeworks.js"></script>
+
 
   <!-- Javascript Programm in separater Datei -->
   <script type="text/javascript" src="js/progsp_9.js" id="homework"></script>
@@ -50,11 +49,109 @@
       vertical-align: top;
 
     }
+
+    #tool_tip{
+background-color: rgba(128, 128, 128, 0.07);
+border-radius: 4px;
+padding: 40px 40px 10px 30px;
+max-width: 600px;
+position: relative;
+margin: 0 auto;
+z-index: 2;
+/* font-size: 18px; - use only if required
+/* line-height: 28px; - use only if required */
+}
+
+/* Tooltip */
+.help-tip{
+position: absolute;
+font-family: Arial, Helvetica, sans-serif;
+top: 18px;
+right: 18px;
+text-align: center;
+background-color: #4F798E;
+border-radius: 50%;
+width: 24px;
+height: 24px;
+line-height: 26px;
+cursor: default;
+}
+
+.help-tip:before{
+content:'?';
+font-weight: bold;
+color:#fff;
+}
+
+.help-tip:hover p{
+display:block;
+transform-origin: 100% 0%;
+-webkit-animation: fadeIn 0.3s ease-in-out;
+animation: fadeIn 0.3s ease-in-out;
+}
+
+.help-tip p{
+display: none;
+text-align: left;
+background-color: #1E2021;
+padding: 20px;
+width: 300px;
+position: absolute;
+border-radius: 3px;
+box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+right: -4px;
+color: #FFF;
+font-size: 18px; /* Change the font size inside tooltip */
+line-height: 1.4;
+}
+
+.help-tip p:before{
+position: absolute;
+content: '';
+width:0;
+height: 0;
+border:6px solid transparent;
+border-bottom-color:#1E2021;
+right:10px;
+top:-12px;
+}
+
+.help-tip p:after{
+width:100%;
+height:40px;
+content:'';
+position: absolute;
+top:-40px;
+left:0;
+}
+
+@-webkit-keyframes fadeIn {
+0% {
+opacity:0;
+transform: scale(0.6);
+}
+
+100% {
+opacity:100%;
+transform: scale(1);
+}
+}
+
+@keyframes fadeIn {
+0% { opacity:0; }
+100% { opacity:100%; }
+}
+
+}
+}
+
   </style>
 </head>
 
 <body>
   <svg id="svg" style="display: none" xmlns="http://www.w3.org/2000/svg" version="1.1">
+
+
     <path id="jellyfish"
       d="M147.6,460c4-27.6,9.8-68,42.8-96.1c32.8-28,73.3-27.5,88.4-27.3c41,0.4,68.8,12.7,87.5,29.4
 	c40.8,36.4,39,91.9,38.8,96.9c-0.9,20.3-6.7,24.2-7.1,53.2c-0.2,13.2,1,17,3.5,56.8c2.2,35,2.4,47.6-2.1,49
@@ -97,7 +194,9 @@
 	s-4.5,38.1-39.1,39.1c-34.6,1-38.4,38.4-38.4,38.4s-4.9,10.5-7.3,7.3c-2.4-3.1-2.8-17.5-2.8-17.5s3.8-37.4,38.4-38.4
 	c34.6-1,39.1-39.1,39.1-39.1s3.8-37.4,38.4-38.4s39.1-39.1,39.1-39.1s3.8-37.4,38.4-38.4c34.6-1,39.1-39.1,39.1-39.1
 	c0,0,4.5-38.1,39.1-39.1c34.6-1,38.4-38.4,38.4-38.4s4.5-38.1,39.1-39.1C453.7,298.3,457.5,261,457.5,261z" />
-
+  <div class="help-tip">
+  <p>Hilf dem Fisch, durch die Unterwasserwelt zu kommen.
+  <br/>Drücke die Maus um zu starten. <br/> <br/>Drücke <b> Leertaste </b>, um den Fisch mit Luft zu befüllen oder zu entleeren.</p>
 </body>
 
 </html>
