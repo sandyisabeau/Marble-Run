@@ -31,6 +31,7 @@ let sharkx = 250
 function preload(){
     biteSound = loadSound("bite.mp3");
     failSound = loadSound("fail.mp3");
+    explosionSound = loadSound("explosion.mp3")
     airSound = loadSound("air.mp3");
     bubblesSound = loadSound("bubbles.mp3");
     boingSound = loadSound("boing.mp3");
@@ -133,7 +134,8 @@ setTimeout(starLetGo,3000);
   }
 }
 function restart() {
-  failSound.play();
+  //failSound.play();
+  explosionSound.play();
   Matter.Body.setPosition(ball, {x:100, y:60});
 
 }
