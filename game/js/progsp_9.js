@@ -261,6 +261,7 @@ jawsSound.setVolume(0.5);
    /*35*/ blocks.push(new Block('rect',{ x: 280, y: 370, w: 30, h: 75, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
 // portal vor Krabbe
   /*33*/ blocks.push(new Block('rect',{ x: 1350 , y: 370 , w: 400, h: 20, color: color(255, 255, 255,0), isPortal: true}, { isStatic: true, restitution: 0}))
+   /*36*/ blocks.push(new Block('rect',{ x: 1100, y: 1770, w: 30, h: 1100, color: color(255,255,255,0) }, { isStatic: true, friction: 0}))
 
 
     domino = blocks[5].body;
