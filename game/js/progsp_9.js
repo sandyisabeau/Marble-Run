@@ -122,9 +122,9 @@ setTimeout(starLetGo,3000);
            sharkHit = 0;
            jawHit = 0;
            starHit = 0;
-             setTimeout(restart,100);
+             removeBall();
              Matter.Body.setStatic(ball, true);
-             setTimeout(awake, 1000)
+             setTimeout(addNewBall, 1000)
             }
          this.hit = true
 }
@@ -133,14 +133,20 @@ setTimeout(starLetGo,3000);
     drawBody(this.body)
   }
 }
-function restart() {
-  //failSound.play();
+function removeBall() {
+  // failSound.play();
+  scaleFish=(0.07*4);
   explosionSound.play();
-  Matter.Body.setPosition(ball, {x:100, y:60});
-
+  Matter.World.remove(engine.world, ball)
+  //console.log(ball)
 }
-function awake(){
-  Matter.Body.setStatic(ball, false)
+function addNewBall(){
+  Matter.World.add(engine.world, ball)
+  balls.push(ball)
+  Matter.Body.setPosition(ball, {x:100, y:60});
+  scaleFish=(0.07);
+  Matter.Body.setStatic(ball, false);
+
 }
 function setup() {
 
