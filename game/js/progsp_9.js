@@ -566,31 +566,6 @@ function drawVertices(vertices) {
 }
 
 
-
-function keyPressed(){
-  switch (keyCode) {
-// Taste C
-    case 67:
-  engine.world.gravity.y = -engine.world.gravity.y;
-  if (engine.world.gravity.y < 0){
-    airSound.play()
-  }
-  if (engine.world.gravity.y > 0){
-    bubblesSound.play()
-  }
-
-
-  if (isSmall) {
-       Matter.Body.scale(balls[0], 1.5, 1.5);
-       scaleFish=(0.07*1.5);
-     } else {
-       Matter.Body.scale(balls[0], 0.66666666666, 0.66666666666);
-       scaleFish=(0.07);
-     }
-     isSmall = !isSmall; // toggle isSmall variable
-   }
-    }
-
     function scrollFollow(matterObj) {
       if (insideViewport(matterObj) == false) {
         const $element = $('html, body');
@@ -650,3 +625,27 @@ function attract(ball) {
   function starLetGotwo(){
 
     isMagnetisch = false;}
+
+    function keyPressed(e) {
+  // prevent scrolling of website with SPACE key
+  if(e.keyCode == 32 && e.target == document.body) {
+    e.preventDefault();
+    engine.world.gravity.y = -engine.world.gravity.y;
+    if (engine.world.gravity.y < 0){
+      airSound.play()
+    }
+    if (engine.world.gravity.y > 0){
+      bubblesSound.play()
+    }
+
+
+    if (isSmall) {
+         Matter.Body.scale(balls[0], 1.5, 1.5);
+         scaleFish=(0.07*1.5);
+       } else {
+         Matter.Body.scale(balls[0], 0.66666666666, 0.66666666666);
+         scaleFish=(0.07);
+       }
+       isSmall = !isSmall; // toggle isSmall variable
+     }
+  }
