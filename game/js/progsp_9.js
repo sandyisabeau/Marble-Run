@@ -1,4 +1,3 @@
-Homeworks.aufgabe = 8;
 // Benedikt Groß
 // Example is based on examples from: http://brm.io/matter-js/, https://github.com/shiffman/p5-matter
 // Benno Stäbler: kopiert vom 02-mouse Beispiel, erweitert um komplexe Bodies und in die bekannte Struktur gebracht
@@ -175,7 +174,6 @@ jawsSound.setVolume(0.5);
    pearlImg = loadImage('pearl.png');
 // blurryview Bild
   viewImg = loadImage("view.png");
-  backgroundImg = loadImage("background.png")
   // teeth Bild
   lowerteethImg = loadImage("lowerteeth.png")
   upperteethImg = loadImage("upperteeth.png")
@@ -398,7 +396,7 @@ function startEngine() {
 
 function draw() {
   //hintergrund
-    image(backgroundImg,0,0,windowWidth,4100);
+clear()
 
     //bubbles
     image(bubblesGif,-10,250,350,300);
