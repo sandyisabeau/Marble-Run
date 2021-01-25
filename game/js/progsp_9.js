@@ -176,7 +176,10 @@ jawsSound.setVolume(0.5);
   koralleImg = loadImage("koralle.png")
      alge1Img = loadImage("alge1.png")
     alge2Img = loadImage("alge2.png")
-
+    
+//zacken
+    zackenImg = loadImage("zacken.png")
+    zacken2Img = loadImage("zacken2.png")
 
 
 
@@ -243,11 +246,13 @@ jawsSound.setVolume(0.5);
   /*31*/ blocks.push(new Block('rect',{ x: 930 , y: 165 , w: 250, h: 22, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
   /*32*/ blocks.push(new Block('rect',{ x: 275 , y: 195 , w: 500, h: 35, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
 // portal oben
-  /*33*/ blocks.push(new Block('rect',{ x: 225 , y: 700 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true}, { isStatic: true, restitution: 0}))
+  /*33*/ blocks.push(new Block('rect',{ x: 225 , y: 710 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true}, { isStatic: true, restitution: 0}))
 // portal unten
   /*34*/ blocks.push(new Block('rect',{ x: 225 , y: 2680 , w: 400, h: 20, color: color(255,255,255,0), isPortal: true }, { isStatic: true, restitution: 0}))
   // stop oben
    /*35*/ blocks.push(new Block('rect',{ x: 280, y: 370, w: 30, h: 75, color: color(101, 51, 16) }, { isStatic: true, friction: 0}))
+// portal vor Krabbe
+  /*33*/ blocks.push(new Block('rect',{ x: 1350 , y: 370 , w: 400, h: 20, color: color(255, 255, 255,0), isPortal: true}, { isStatic: true, restitution: 0}))
 
 
     domino = blocks[5].body;
@@ -452,6 +457,9 @@ Matter.Body.setPosition(ball, {x:1000, y:3910});
 image(lowerteethImg,-20, 765,1200,800);
 image(sharkleftImg,sharkx,3750,300,225);
 image(upperteethImg,blocks[13].body.position.x-500,blocks[13].body.position.y-370,1200,900);
+image(zackenImg,20,700,250,30)
+image(zackenImg,20,2680,300,30)
+image(zacken2Img,1150,360,300,30)
 image(crabImg,blocks[1].body.position.x-270,blocks[1].body.position.y-70,350,250);
 image(crabImg,blocks[25].body.position.x-270,blocks[25].body.position.y-70,350,250);
 image(viewImg,ball.position.x-2850,ball.position.y-1600);
