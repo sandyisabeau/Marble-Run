@@ -171,7 +171,7 @@ jawsSound.setVolume(0.5);
 
 //ball Bild
    ballImg = loadImage('ball.png');
-   PerleImg = loadImage('Perle.png');
+   PerleImg = loadImage('perle.png');
 // blurryview Bild
   viewImg = loadImage("view.png");
   // teeth Bild
@@ -446,7 +446,7 @@ if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 &&
   Matter.Body.setPosition(ball, {x:250, y:3900});
   scaleFish = 0
   sharkleftImg = sharkrightImg;
-  ballImg=PerleImg;
+  ballImg=perleImg;
   while (sharkx<600) { sharkx += 20;}
   sharkHit = sharkHit+1
   if (sharkHit ==1){
