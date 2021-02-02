@@ -171,7 +171,7 @@ jawsSound.setVolume(0.5);
 
 //ball Bild
    ballImg = loadImage('ball.png');
-   PerleImg = loadImage('perle.png');
+   perleImg = loadImage('perle.png');
 // blurryview Bild
   viewImg = loadImage("view.png");
   // teeth Bild
