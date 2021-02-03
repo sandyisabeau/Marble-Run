@@ -252,7 +252,7 @@ jawsSound.setVolume(0.5);
   /*28*/ blocks.push(new Block('rect',{ x: 140, y:3950, w: 300, h:35, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
   /*29*/ blocks.push(new Block('rect',{ x: 10, y:3820, w: 30, h: 550, color: color(255,255,255,0) }, { isStatic: true, friction: 0, angle: PI/32}))
 
-  /*30*/ blocks.push(new Block('rect',{ x: 1240, y:4000, w: 600, h: 35, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
+  /*30*/ blocks.push(new Block('rect',{ x: 840, y:4000, w: 400, h: 35, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
 // blocks.push(new Block('rect',{ x: 810, y:3920, w: 30, h: 350, color: color(101, 51, 16) }, { isStatic: true, friction: 0, angle: PI/32}))
 // neuer block ganz oben
   /*31*/ blocks.push(new Block('rect',{ x: 930 , y: 165 , w: 250, h: 22, color: color(101, 51, 16) }, { isStatic: true, angle: PI/32, friction: 0.5 }))
@@ -447,13 +447,13 @@ if ((ball.position.x > 250 && ball.position.y > 3900)&&(ball.position.x < 300 &&
   scaleFish = 0
   sharkleftImg = sharkrightImg;
   ballImg=perleImg;
-  while (sharkx<600) { sharkx += 20;}
+  while (sharkx<390) { sharkx += 20;}
   sharkHit = sharkHit+1
   if (sharkHit ==1){
   biteSound.play();
   jawsSound.stop();
 }
-  setTimeout(sharkEat,100)
+  setTimeout(sharkEat,200)
 }
 
 function sharkEat(){
@@ -497,8 +497,8 @@ image(alge1Img, 500, 2257, 80, 90);
 //beim hai
 image(koralleImg, 1350, 3938, 60, 60);
 image(koralleImg, 10, 3865, 60, 60);
-image(alge2Img, 1240, 3900, 80, 90);
-image(alge1Img, 1190, 3925, 60, 60);
+image(alge2Img, 940, 3910, 80, 90);
+image(alge1Img, 890, 3935, 60, 60);
     
     image(viewImg,ball.position.x-2850,ball.position.y-1600);
     
